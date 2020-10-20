@@ -1,18 +1,19 @@
+// MCD con teorema di Euclide
+
 package main
 
 import "fmt"
 
 func main() {
-	var n, c int
-	fmt.Println("Inserisci un numero")
-	fmt.Scan(&n)
-	if n==0 {
-		c = 1
-	} else {
-		for n != 0{
-			n /= 10
-			c++
-		}
+	var x, y, r int
+	fmt.Println("Inserisci il primo numero")
+	fmt.Scan(&x)
+	fmt.Println("Inserisci il secondo numero")
+	fmt.Scan(&y)
+	for r = x % y; r != 0; {
+		x = y
+		y = r
+		r = x % y
 	}
-	fmt.Println("Numero di cifre:", c)
+	fmt.Println("L'MCD è", y)
 }
