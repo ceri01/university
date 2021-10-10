@@ -71,7 +71,6 @@ void split_normal(char *str, int *arr, size_t length) {
 
 void n_to_am_pm(int *arr) {
     if (arr[0] > 12) {
-        printf("z");
         arr[0] = arr[0] - 12;
     } else if (arr[0] == 0) {
         arr[0] = arr[0] + 12;
