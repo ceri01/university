@@ -28,20 +28,22 @@ int main() {
         return 0;
     }
 
-    printf("L M M G V S D\n");
+    int d_in_m = get_days_in_month(month);
 
-    for (int i = 0, day = 1; i < 5; i++) {
-        for (int k = 0; k < 7; k++) {
-            if (i == 0 && k < day) {
-                printf("  ");
+    printf(" L   M   M   G   V   S   D\n");
+
+    for (int i = 0, day = 1; (i <= 5); i++) {
+        for (int k = 0; k < 7 && d_in_m >= day; k++) {
+            if (i == 0 && k+1 < init_day) {
+                printf("    ");
                 continue;
             } else {
-                printf("%d ", day);
+                if (day < 10) {
+                    printf(" %d  ", day);
+                } else {
+                    printf(" %d ", day);
+                }
                 day++;
-            }
-            if (get_days_in_month(month) <= day) {
-                i = 5;
-                break;
             }
         }
         printf("\n");
