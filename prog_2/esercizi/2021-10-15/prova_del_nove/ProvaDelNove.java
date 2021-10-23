@@ -1,50 +1,47 @@
 import java.util.*;
 
 public class ProvaDelNove {
-    static int sumDigit(int n) {
-        int t = 0;
-        String m1 = String.valueOf(n); 
-        
-        for(int i = 0; i < m1.length(); i++) {
-        t += m1.charAt(i) - '0'; 
-            // t += Character.getNumericValue(m1.charAt(i)); per farlo con gli oggetti
-        }
-
-        return t;
+    
+    // Pre-condizioni: n > 0
+    // Post-condizioni: Ritorna la somma delle cifre di un numero
+    static int sommaCifre(int n) {
+        return n % 9;
     }
-
-    static boolean proof(int mdo, int mre, int res) {
+    
+    // Pre-condizioni: mdo > 0, mre > 0, res > 0
+    // Post-condizioni: ritorna true se mdo * mre e res soddisfano la prova del nove 
+    static boolean prova(int mdo, int mre, int res) {
         int tot;
-        tot = sumDigit(mdo) * sumDigit(mre);
+        tot = sommaCifre(mdo) * sommaCifre(mre);
         for(;tot > 9;) {
-            tot = sumDigit(tot);
+            tot = sommaCifre(tot);
         }
         for(;res > 9;) {
-            res = sumDigit(res);
+            res = sommaCifre(res);
         }
-        System.out.print(tot);
-        System.out.println(res);
         if (tot == res) {
             return true;
         }
         return false;
     }
     
-    public static void main(String[] args) {
-        Scanner s =  new Scanner(System.in);
-        int n = s.nextInt();
-        int j = 1;
-        
-        for(int i = 1; i < n + 1; i++) {
-            for(int k = 1; k < n + 1; k++) {
-                if (k * i != j) {
-                    if (proof(i, k, j)) {
-                        System.out.println(String.valueOf(i) + " " + String.valueOf(k) + " " + String.valueOf(j));
+    // Pre-condizioni: n > 0;
+    // Post-condizioni: Stampa tutte le terne tali che A * B != C (con A, B e C < n) e che soddisfano la prova del nove
+    static void stampaTerne(int n) {
+        for(int a = 1; a < n; a++) {
+            for(int b = 1; b < n; b++) {
+                for(int c = 1; c < n; c++) {
+                    if (a * b != c && prova(a, b, c)) {
+                        System.out.println(String.valueOf(a) + " " + String.valueOf(b) + " " + String.valueOf(c));
                     }
-                    j++;
                 }
             }
-            j = 1;
         }
+    }
+    
+    public static void main(String[] args) {
+        Scanner s =  new Scanner(System.in);
+        int n = s.nextInt(); 
+        stampaTerne(n);
     }
 }
