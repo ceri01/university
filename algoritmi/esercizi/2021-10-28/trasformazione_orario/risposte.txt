@@ -1,4 +1,0 @@
-1) tot_sec e' un long int, mentre h, m, s sono puntatori ad interi, sono dichiarati in questo per far si che contengano un indirizzo di memoria a cui puntano, in questo modo e' possibile modificare una variabile che e' stata dichiarata nel main o comunque non nel corpo della funzione.
-
-2) nella parte di destra h e' una porzione di memoria che contiene l'indirizzo di memoria della variabile h della parte di sinistra, mentre h nella colonna di sinistra e' una porzione di memoria che contiene un valore, questa e' la parte di memoria che viene puntata.
-
