@@ -1,6 +1,9 @@
 import java.util.*;
 
 public class Rombo {
+    
+    // Pre-condizioni: n > 0
+    // Post-condizioni: Stampa un rombo avente diagonale = 2n + 1
     static void generaRombo(int n) {
         int diag = (2 * n) + 1;
         int p = 1;

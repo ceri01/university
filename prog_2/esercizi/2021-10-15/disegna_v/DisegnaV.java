@@ -1,6 +1,9 @@
 import java.util.*;
 
 public class DisegnaV {
+    
+    // Pre-condizioni: n > 0
+    // Post-condizioni: Stampa una v di dimensione n
     static void disegna(int n) {
         int spazi = n + (n - 3);
         for(int i = 0; i < n; i++) {

@@ -1,22 +1,36 @@
 import java.util.*;
 
 public class Scacchiera {
-    static void generaRiga(int n, char ch) {
-        for (int i = 0; i < (n * 8); i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(ch);
+    
+    // Pre-condizioni: n > 0
+    // Post-condizioni: Stampa una riga n*n  della scacchiera 
+    static void generaRiga(int n, int ch) {
+        for(int r = 0; r < n; r++) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < n; j++) {
+                    System.out.print((char)ch);
+                }
+                if(ch == 45) {
+                    ch = ch - 10;
+                } else {
+                    ch = ch + 10;
+                }
             }
-        }
+            System.out.println("");
+        }   
     }
+    
 
+    // Pre-condizioni: n > 0
+    // Post-condizioni: Stampa una scacchiera
     static void stampaScacchiera(int n) {
         int ch = 45;
-        for (int i = 0; i < 8; i++) {
-            generaRiga(n, (char)ch);
-            if (i % 2 == 1) {
-                ch += 10;
-            } else {
+        for(int i = 0; i < 8; i++) {
+            generaRiga(n, ch);
+            if(ch == 45) {
                 ch -= 10;
+            } else  {
+                ch += 10;
             }
         }
     }      
