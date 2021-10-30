@@ -1,0 +1,3 @@
+3) la variabile str e' stata dichiarata come come un array di char e poi tramite un puntatore viene riempito.
+
+4) non c'e' alcuna differenza tra le due dichiarazioni.
