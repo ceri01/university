@@ -8,6 +8,7 @@ void list_insert_void(int n, Node *l) { // e' come fare struct node **l
     Node new_node = malloc(sizeof(Node));
     new_node -> info = n;
     new_node -> next = *l;
+
 }
 
 Node list_insert(int n, Node l) {
@@ -18,14 +19,10 @@ Node list_insert(int n, Node l) {
 }
 
 Node list_search(int n, Node l) {
-    /*
-    while(l != NUll && l -> info != n) {
+    while(l != NULL && l -> info != n) {
         l = l -> next;
     }
-    */
-    for (;l != NULL  && l -> info != n;) {
-        l = l -> next;
-    }
+
     return l;
 }
 
@@ -40,6 +37,7 @@ Node list_search_rec(int n, Node l) {
 
     l = l -> next;
     list_search_rec(n, l);
+    return NULL;
 }
 
 Node list_delete(int n, Node l) {
@@ -98,13 +96,16 @@ void list_destroy(Node *l) {
         free(current);
         current = next;
     }
+    *l = current;
 }
 
-void list_destroy_rec(Node l) {
-    if(l != NULL) {
-        list_destroy_rec(l -> next);
+void list_destroy_rec(Node *l) {
+    Node current = *l;
+    if(current != NULL) {
+        list_destroy_rec(&(current -> next));
     }
-    free(l);
+    free(current);
+    *l = NULL;
 }
 
 Node o_list_insert(int n, Node l) {
