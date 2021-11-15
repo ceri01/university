@@ -1,5 +1,4 @@
-import java.util.list;
-import java.util.Random;
+import java.util.*;
 
 /**
  *  Gli oggetti di questa classe rappresentano l'insieme dei numeri iteri
@@ -7,7 +6,7 @@ import java.util.Random;
  *  All'interno dell'insieme non ci sono elementi ripetuti
  *  I valori vengono inseriti in modo ordinato.
  */
-
+@SuppressWarnings("unchecked")
 public class IntSet {
     
     // ATTRIBUTI
@@ -16,8 +15,7 @@ public class IntSet {
      *  L'attributo set e' una lista che rappresenta un insieme di interi.
      */
     
-    private List<int> set;
-
+    private List<Integer> set;
     // COSTRUTTORE
 
     /**
@@ -31,12 +29,12 @@ public class IntSet {
     // METODI
     
     /**
-     *  Post-condizioni: Restituisce un oggetto contenente gli stessi elementi di this
-     *  Effetti collaterali: viene creato un nuovo oggetto uguale a this
+     *  Post-condizioni: Restituisce un oggetto contenente gli stessi elementi di set
+     *  Effetti collaterali: viene creato un nuovo oggetto uguale a set
      */
-    public void getSet() {
-        cloneSet = new arrayList();
-        cloneSet.addAll(0, this);
+    public List<Integer> Set() {
+        List<Integer> cloneSet = new ArrayList();
+        cloneSet.addAll(0, set);
         return cloneSet;
     }
 
@@ -48,16 +46,16 @@ public class IntSet {
 
     private void insertionSort(int len, int n) {
         int val, find;
-        this.add(n);
+        set.add(n);
 
         for(int i = 1; i < len; i++) {
-            val = this.get(i);
+            val = set.get(i);
             find = i - 1;
-            while(find >= 0 && this.get(j) > val) {
-                this.add(find+1, find);
+            while(find >= 0 && set.get(i) > val) {
+                set.add(find+1, find);
                 find = find - 1;    
             }
-            this.add(find+1, val);
+            set.add(find+1, val);
         }
     }
 
@@ -69,10 +67,10 @@ public class IntSet {
     */
 
     public void insert(int n) {
-        if(this.size() == 1) {
-            this.add(n);
+        if(dim() == 1) {
+            set.add(n);
         } else {
-            this.insertionSort(this.size()+1, n);
+            insertionSort(dim()+1, n);
         }    
     }
 
@@ -83,7 +81,7 @@ public class IntSet {
      */
 
     public void delete(int n) {
-        this.remove(Integer.valueOf(n));
+        set.remove(Integer.valueOf(n));
     }
 
     /**
@@ -94,9 +92,9 @@ public class IntSet {
      */
 
     public int choose() {
-        if(this.isEmpty()) throw new EmptyException("L'insieme e' vuoto");
+        if(set.isEmpty()) throw new EmptyException("L'insieme e' vuoto");
         Random rand = new Random();
-        return this.get(rand.nextInt(this.size()));
+        return set.get(rand.nextInt(dim()));
     }
     
     /**
@@ -105,8 +103,8 @@ public class IntSet {
      *  Post-condizioni: viene restituira la dimensione dell'insieme
      */
 
-    public int size() {
-        return this.size();
+    public int dim() {
+        return set.size();
     }
 
     /**
@@ -117,18 +115,18 @@ public class IntSet {
     
     private int binarySearch(int x) {
         int min = 0;
-        int max = this.size();
+        int max = dim();
         int middle;
 
         while(min <= max) {
             middle = (max + min) >>> 1;
-            if(this.get(mid) == x) {
-                return mid;
+            if(set.get(middle) == x) {
+                return middle;
             }
-            if (this.get(mid) > x) {
-                min = mid + 1; 
+            if (set.get(middle) > x) {
+                min = middle + 1;
             } else {
-                max = mid - 1;
+                max = middle - 1;
             }
         }
         return -1;
@@ -140,7 +138,7 @@ public class IntSet {
      */
 
     public boolean contains(int x) {
-        if (this.binarySearch(x) >= 0) {
+        if (binarySearch(x) >= 0) {
             return true;
         }
         return false;
@@ -153,8 +151,8 @@ public class IntSet {
      *  Post-condizioni: viene stampato il comtenuto dell'insieme
      */
 
-    @override
+    @Override
     public String toString() {
-        return "{" + this.toString() + "}";
+        return "{" + set.toString() + "}";
     }
 }

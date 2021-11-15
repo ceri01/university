@@ -171,4 +171,17 @@ public class PolySparse {
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("SparsePoly: ");
+
+        if (degree() == -1) sb.append('0');
+        else {
+            for (int i = 0; i < terms.size() - 1; i++) sb.append(terms.get(i).toString()).append(" + ");
+            sb.append(terms.get(terms.size() - 1));
+        }
+
+        return sb.toString();
+    }
  }
