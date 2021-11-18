@@ -11,15 +11,17 @@ public class Test {
 			sb.setLength(0); 
 			sb = new StringBuilder(s.next());
 			if((sb.toString().equals("+"))) {
-				sb = new StringBuilder(s.next());
+				sb.setLength(0);
+                sb = new StringBuilder(s.next());
 				int val = s.nextInt();
 				map.put(sb.toString(), val);
 				System.out.println(map.toString());			
 			} else if(sb.toString().equals("-")) {
-				String key = s.next();
-				if(map.contains(key)) {
-					int val = map.get(key);
-					map.remove(key);
+				sb.setLength(0);
+                sb = new StringBuilder(s.next());
+				if(map.contains(sb.toString())) {
+					int val = map.get(sb.toString());
+					map.remove(sb.toString());
 					System.out.println(val);
 				}
 			} else if (sb.toString().equals("f")) {

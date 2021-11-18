@@ -104,7 +104,11 @@ public class IntSet {
      */
 
     public int dim() {
-        return set.size();
+        if(set.isEmpty()) {
+            return 0;
+        } else {
+            return set.size();
+        }
     }
 
     /**
