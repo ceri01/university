@@ -71,7 +71,10 @@ public class SimpleMap {
 			assert repOk();
 			keys.add(key);
 			values.add(value);
-		}
+		} else {
+            int index = keys.indexOf(key);
+            values.add(index, value);
+        }
 	}
 
     /*
