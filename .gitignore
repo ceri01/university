@@ -76,3 +76,11 @@ Eliminerei .idea/inspectionProfiles/
 Eliminerei .idea/modules.xml
 Eliminerei .idea/programmazione I.iml
 Eliminerei .idea/vcs.xml
+
+*.txt
+*.o
+*.out
+*.class
+basi_di_dati/
+esercizio*/
+teoria/
