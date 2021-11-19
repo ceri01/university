@@ -7,6 +7,9 @@ void make_empty(void);
 /* Restituisce 1 se la pila e' vuota 0 altrimenti */
 int is_empty(void);
 
+/* Restituisce 1 se la pila e' piena, 0 altrimenti*/
+int is_full(void);
+
 /* Se la pila non e' vuota restituisce il top della pila, altrimenti esce un messaggio di errore */
 int top(void);
 
