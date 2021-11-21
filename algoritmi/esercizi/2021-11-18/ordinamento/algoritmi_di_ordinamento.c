@@ -116,6 +116,8 @@ void merge_sort(int a[], int sx, int dx) {
 		i++;
 		k++;
 	}
+	free(tmp1);
+	free(tmp2);
 }
 
 
