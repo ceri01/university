@@ -250,8 +250,4 @@ public class IntSet implements Iterable {
             }
         }
     }
-
-    public Iterator<Integer> getEvenNumber() {
-        return new FilterIterator<>.iterator(iterator(), new IsEven());
-    }
 }
