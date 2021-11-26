@@ -83,7 +83,7 @@ void mergesort(int a[], int sx, int dx, int tmp[]) {
 
 	mergesort(a, sx, m, tmp);	
 	mergesort(a, m, dx, tmp);
-    merge(a, sx, m, dx, tmp);   
+    	merge(a, sx, m, dx, tmp);   
 }
 
 void merge(int a[], int sx, int m, int dx, int tmp[]) {
