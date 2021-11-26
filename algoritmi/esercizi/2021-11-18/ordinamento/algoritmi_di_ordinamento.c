@@ -4,8 +4,10 @@
 void print(int a[], int length);
 void swap(int a[], int i, int j);
 void selection_sort(int a[], int n);
-void merge_sort(int a[], int sx, int dx);
-
+void mergesort(int a[], int sx, int dx, int tmp[]);
+void merge_sort(int a[], int dim);
+void merge(int a[], int sx, int m, int dx, int tmp[]);
+    
 int main() {
 	int n, d1 = 0, d2 = 0;
 
@@ -22,7 +24,7 @@ int main() {
 	printf("Dimensione secondo array: ");
 	scanf("%d", &d2);	
 	int b[d2];
-	
+
 	printf("Inserisci i valori per il secondo array:\n");
 	for(int i = 0; i < d2; i++) {
 		scanf("%d", &n);
@@ -35,7 +37,7 @@ int main() {
 	print(a, d1);
 	printf("\n");
 	print(b, d2);
-	merge_sort(b, 0, d2);
+	merge_sort(b, d2);
 	printf("Merge Sort = ");
 	print(b, d2);
 }
@@ -67,57 +69,54 @@ void selection_sort(int a[], int n) {
 	selection_sort(a, n-1);
 }
 
-void merge_sort(int a[], int sx, int dx) {
-	int *tmp1 = malloc(dx/2 * sizeof(int));
-	int *tmp2 = malloc(dx/2 * sizeof(int));
-	int dim_disp = 0;
-
-	if(dx <= 1) {
-		return;
-	}
-
-	for(int i = 0; i < dx/2; i++) {
-		tmp1[i] = a[i];
-	}
-
-	if(dx % 2 == 1 && dx != 1) {
-		dim_disp = (dx/2)+1;
-		tmp2 = realloc(tmp2, dim_disp);
-	} else {
-		dim_disp = dx/2;				
-	}
-
-	for(int i = 0, k = dx/2; k < dx; i++, k++) {
-		tmp2[i] = a[k];
-	}
-
-	merge_sort(tmp1, 0, dx/2);	
-	merge_sort(tmp2, 0, dim_disp);
-
-	int i = 0, k = 0, j = 0;
-	while(j < dx/2 && k < dim_disp) {
-		if(tmp1[j] <= tmp2[k]) {
-			a[i] = tmp1[j];
-			j++;
-		} else if(tmp2[k] < tmp1[j]) {
-			a[i] = tmp2[k];
-			k++;
-		}
-		i++;
-	}
-
-	while(j < dx/2) {
-		a[i] = tmp1[j];
-		i++;
-		j++;
-	}
-	while(k < dim_disp) {
-		a[i] = tmp2[k];
-		i++;
-		k++;
-	}
-	free(tmp1);
-	free(tmp2);
+void merge_sort(int a[], int dim) {
+    int tmp[dim];
+    mergesort(a, 0, dim, tmp);
 }
 
+void mergesort(int a[], int sx, int dx, int tmp[]) {
+	int m = (dx + sx) / 2;
+
+    if(dx-sx <= 1) {
+        return;
+	}
+
+	mergesort(a, sx, m, tmp);	
+	mergesort(a, m, dx, tmp);
+    merge(a, sx, m, dx, tmp);   
+}
+
+void merge(int a[], int sx, int m, int dx, int tmp[]) {
+	int index = 0;
+    int i = sx, k = m;
+
+    while(i < m && k < dx) {
+		if(a[i] <= a[k]) {
+			tmp[index] = a[i];
+			i++;
+		} else {
+			tmp[index] = a[k];
+			k++;
+		}
+		index++;
+	}
+
+	while(i < m) {
+		tmp[index] = a[i];
+		i++;
+		index++;
+	}
+
+	while(k < dx) {
+		tmp[index] = a[k];
+		k++;
+		index++;
+	}
+
+    i = 0;
+    while(i < dx-1-sx) {
+        a[i+sx] = tmp[i];
+        i++;
+    }
+}
 

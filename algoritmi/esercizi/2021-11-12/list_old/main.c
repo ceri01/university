@@ -1,25 +1,7 @@
 #include "list.h"
 #include <stdio.h>
 #include <stdlib.h>
-/* Scan con generici non funzionante
-#define scan_any(X) _Generic((X), int: scan_int, \
-                                  float: scan_float, \
-                                  char: scan_char)(X)
 
-int scan_int(int i) {
-    scanf("%d", &i);
-    return i;
-}
-int scan_float(float f) {
-    printf("%f", f);
-    scanf("%f", &f);
-    return f;
-}
-int scan_char(char c) {
-    scanf("%c", &c);
-    return c;
-}
-*/
 typedef struct node *Node;
 
 typedef struct {
@@ -33,12 +15,12 @@ int main() {
     list -> count = 0;
     Node index_list =  list -> head;
     char ch;
-    Item n;
+    int n;
 
     while((ch = getchar()) != 'f') {
         switch (ch) {
-            case '+': 
-                n = scan_any(n);
+            case '+':
+                scanf(" %d", &n);
                 index_list = list_search(n, list -> head);
                 if(index_list == NULL) {
                     list -> head = list_insert(n, list -> head);
@@ -46,7 +28,7 @@ int main() {
                 }
                 break;
             case '-':
-                n = scan_any(n);
+                scanf(" %d", &n);
                 index_list = list_search(n, list -> head);
                 if(index_list == NULL) {
                     break;
@@ -55,8 +37,8 @@ int main() {
                     list -> count--;
                 }
                 break;
-            case '?': 
-                n = scan_any(n);
+            case '?':
+                scanf(" %d", &n);
                 index_list = list_search(n, list -> head);
                 if(index_list == NULL) {
                     printf("%d non appartiene all'insieme\n", n);

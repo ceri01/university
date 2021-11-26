@@ -3,43 +3,22 @@
 #include <stdlib.h>
 
 typedef struct node *Node;
-/* Stampa usando i generici
-#define print_any(X) _Generic((X), int: print_int, \
-                                   char: print_char, \
-                                   float: print_float, \
-                                   default: print_unknown)(X)
-int print_int(int i) {
-    return printf("%d ", i);
-}
 
-int print_float(float f) {
-    return printf("%f ", f);
-}
-
-int print_char(char c) {
-    return printf("%c ", c);
-}
-
-int print_unknown() {
-    return printf("ERROR: unknown type\n");
-}
-*/
-
-void list_insert_void(Item n, Node *l) { // e' come fare struct node **l
+void list_insert_void(int n, Node *l) { // e' come fare struct node **l
     Node new_node = malloc(sizeof(Node));
     new_node -> info = n;
     new_node -> next = *l;
 
 }
 
-Node list_insert(Item n, Node l) {
+Node list_insert(int n, Node l) {
     Node new_node = malloc(sizeof(Node));
     new_node -> info = n;
     new_node -> next = l;
     return new_node; 
 }
 
-Node list_search(Item n, Node l) {
+Node list_search(int n, Node l) {
     while(l != NULL && l -> info != n) {
         l = l -> next;
     }
@@ -47,7 +26,7 @@ Node list_search(Item n, Node l) {
     return l;
 }
 
-Node list_search_rec(Item n, Node l) {
+Node list_search_rec(int n, Node l) {
     if (l -> info == n) {
         return l;
     }
@@ -61,7 +40,7 @@ Node list_search_rec(Item n, Node l) {
     return NULL;
 }
 
-Node list_delete(Item n, Node l) {
+Node list_delete(int n, Node l) {
     Node curr, prev;
     for ( curr = l, prev = NULL; curr != NULL; prev = curr, curr = curr -> next ) {
         if (curr -> info == n )
@@ -80,7 +59,7 @@ Node list_delete(Item n, Node l) {
 
 void print_list(Node l) {
     for(;l != NULL;) {
-        print_item(l -> info); //print_any(l -> info);
+        printf("%d " , l -> info);
         l = l -> next;
     }
     printf("\n");
@@ -90,12 +69,12 @@ void print_list_inv(Node l) {
     if(l -> next != NULL) {
         print_list_inv(l -> next); 
     }
-    print_item(l -> info); //print_any(l -> info);
+    printf("%d ", l -> info);
 }
 
-Item *list_to_array(Node l, int *dim) {
+int *list_to_array(Node l, int *dim) {
     int i = 0, size = 10;
-    Item *arr = malloc(size * sizeof(int));
+    int *arr = malloc(size * sizeof(int));
 
     for(i = 0; l != NULL; i++) {
         if (i >= size) {
@@ -129,7 +108,7 @@ void list_destroy_rec(Node *l) {
     *l = NULL;
 }
 
-Node o_list_insert(Item n, Node l) {
+Node o_list_insert(int n, Node l) {
     Node curr = l;
     Node prec = NULL;
     for(; curr != NULL; prec = curr, curr = curr -> next) { 
@@ -144,7 +123,7 @@ Node o_list_insert(Item n, Node l) {
     return l;
 }
 
-Node o_list_search(Item n, Node l) {
+Node o_list_search(int n, Node l) {
     while(l != NULL) {
         if(l -> info == n) {
             return l;
