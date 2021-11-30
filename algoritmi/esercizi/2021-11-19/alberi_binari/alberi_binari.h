@@ -27,5 +27,7 @@ void bit_postorder(Bit_node t);
 
 void bit_print_node(Bit_node t);
 
+void bit_print_as_summary(Bit_node p, int spaces);
+
 #endif
 

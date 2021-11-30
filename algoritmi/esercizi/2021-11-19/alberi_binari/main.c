@@ -10,11 +10,6 @@ int main() {
     bt -> r -> l = bit_new(2);
     bt -> r -> r = bit_new(7);
     bt -> l -> l = bit_new(4);
-    bt -> l -> r = bit_new(9);
-    bit_inorder(bt);
-    printf("\n");
-    bit_postorder(bt); 
-    printf("\n");
-    bit_preorder(bt);
-    printf("\n");
+    //bt -> l -> r = bit_new(9);
+    bit_print_as_summary(bt, 0);
 }

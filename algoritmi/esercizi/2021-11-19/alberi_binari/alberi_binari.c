@@ -55,4 +55,24 @@ void bit_postorder(Bit_node t) {
 void bit_print_node(Bit_node t) {
     print_item(t -> item);
     printf(" ");
-} 
+}
+
+
+void bit_print_as_summary(Bit_node p, int spaces) { 
+    for(int i = 0; i < spaces; i++) {
+        printf(" ");
+    }
+    if(p != NULL) {
+        printf("* ");
+        bit_print_node(p); 
+        printf("\n");
+        if(p -> l == NULL && p -> r == NULL) {
+            return;            
+        }
+        bit_print_as_summary(p -> l, spaces + 4);
+        bit_print_as_summary(p -> r, spaces + 4);
+    } else {
+        printf("*\n");
+    }
+}
+
