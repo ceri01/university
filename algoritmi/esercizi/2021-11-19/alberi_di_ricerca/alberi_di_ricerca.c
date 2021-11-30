@@ -1,7 +1,8 @@
 #include "../../2021-11-12/item/item.h"
-#include "alberi_binari.h"
+#include "alberi_di_ricerca.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 Bit_node bit_new(Item i) {
     Bit_node n = malloc(sizeof(struct bit_node));
@@ -29,8 +30,9 @@ Item bit_item(Bit_node t) {
 
 void bit_preorder(Bit_node t) {
     if(t != NULL) {
-        bit_print_node(t);
-        bit_preorder(t -> l);
+        bit_print_node(t); 
+		printf("\n");
+		bit_preorder(t -> l);
         bit_preorder(t -> r);
 
     }
@@ -40,6 +42,7 @@ void bit_inorder(Bit_node t) {
     if(t != NULL) {
         bit_inorder(t -> l);
         bit_print_node(t);
+		printf("\n");
         bit_inorder(t -> r);
     }
 } 
@@ -49,6 +52,7 @@ void bit_postorder(Bit_node t) {
         bit_postorder(t -> l);
         bit_postorder(t -> r); 
         bit_print_node(t);
+		printf("\n");
     } 
 }
 
@@ -76,26 +80,62 @@ void bit_print_as_summary(Bit_node p, int spaces) {
     }
 }
 
-Bit_node bit_arr_to_tree(Item a[], int size, int i) {
-	Bit_node new_node = malloc(sizeof(Bit_node));
-	new_node -> item = a[i];
-	if(2*i+1 < size) {
-		new_node -> l = bit_arr_to_tree(a, size, 2*i+1);
-	} else {
+void bist_insert(Bit_node *r, Item item) {
+	if(*r == NULL) {
+		Bit_node new_node = malloc(sizeof(struct bit_node));
+		new_node -> item = item;
 		new_node -> l = NULL;
-	}
-	if(2*i+2 < size) {
-		new_node -> r = bit_arr_to_tree(a, size, 2*i+2);
-	} else {
 		new_node -> r = NULL;
+		*r = new_node;
+		return;
+	} else {
+		if(strcmp((*r) -> item.word, item.word) < 0) {
+			bist_insert(&((*r) -> l), item);  
+		}
+		if(strcmp((*r) -> item.word, item.word) > 0) {
+			bist_insert(&((*r) -> r), item);  
+		}
 	}
-	return new_node;
 }
 
 
+Item bist_search(Bit_node r, char* k) {
+	while(r != NULL) {
+		if(strcmp(r -> item.word, k) < 0) {
+			r = r -> l;
+		} else if(strcmp(r -> item.word, k) > 0) {
+			r = r -> r;  
+		} else {
+			return r -> item;
+		}
+	}
+	Item i = {NULL, -1};
+	printf("Oggetto non trovato\n");
+	return i;
+}
+/*
+int bist_delete(Bit_node *r, char* k) {
+	if(*r != NULL) {
+		if(strcmp((*r) -> item.word, item.word) < 0) {
+			bist_insert(&((*r) -> l), item);  
+		}
+		if(strcmp((*r) -> item.word, item.word) > 0) {
+			bist_insert(&((*r) -> r), item);  
+		}
+	}	
+}
+*/
 
-
-
+void bist_order_print(Bit_node p) {
+	if(p != NULL) {
+		bit_inorder(p);	
+	}
+}
+/*
+void bist_inv_order_print(Bit_node p) {
+	
+}
+*/
 
 
 
