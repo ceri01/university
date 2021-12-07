@@ -6,7 +6,9 @@
  *            un oggetto che rappresenta il numero razionale risultante e lo restituiremo.
  */
 
-
+import java.lang.Math;
+import java.lang.ArithmeticException;
+import java.util.Objects;
 
 public class Rational {
     /*  Attributi
@@ -14,8 +16,8 @@ public class Rational {
     */
     
 
-    public final int num;
-    public final int den;
+    private int num;
+    private int den;
 
     /*
      *  ABS FUNC(rational): rational = +-(num)
@@ -24,7 +26,8 @@ public class Rational {
      *                                 +-(den) 
      *
      *
-     *  RAP INV: rational.den != 0, rational != NULL
+     *  RAP INV: this.den != 0, gcd(this.num, this.den)
+	 *  ABS INV: this.den != 0
      */
 
     // Costruttori
@@ -38,7 +41,16 @@ public class Rational {
 
 
     public Rational(int num, int den) {
-        int mcd = mcd(num, den);
+        if(den == 0) throw new ArithmeticException("Denominator must be > 0");	
+		if(den < 0 && num < 0) {
+			den = Math.abs(den);
+			num = Math.abs(num);
+		} else if(den < 0 && num > 0) {
+
+			den = Math.abs(den);
+			num *= -1;
+		}
+		int mcd = mcd(Math.abs(num), den);
         this.num = num / mcd;
         this.den = den / mcd;
     }
@@ -81,7 +93,6 @@ public class Rational {
         return (num * den) / mcd(num, den);
     }
     
-    
     /*  
      *  Metodo che permette di semplificare il numero razionale
      *  Pre-condizioni: den non deve essere 0
@@ -90,8 +101,7 @@ public class Rational {
 
     public Rational simplify() {
         int mcd = mcd(this.num, this.den);
-        Rational new_rational = new Rational(this.num/mcd, this.den/mcd);
-        return new_rational;
+        return new Rational(this.num/mcd, this.den/mcd);
     }
 
     /*
@@ -100,12 +110,10 @@ public class Rational {
      *  Post-condizioni: Restituisce un nuovo numero razionale che rappresenta la somma tra due numeri razionali
      */
 
-    public int sum(Rational n) {
-        int mcm = mcm(this.num, n.den);
+    public Rational sum(Rational n) {
+        int mcm = mcm(this.den, n.den);
         int num = ((mcm / this.den) * this.num) + ((mcm / n.den) * n.num);
-       
-        Rational sum = new Rational(num, mcm);
-        return sum;
+        return new Rational(num, mcm);
     }
 
     /*
@@ -115,11 +123,10 @@ public class Rational {
      */
 
     public Rational diff(Rational n) {
-        int mcm = mcm(rational.den, n.rational.den);
-        int num = ((mcm / rational.den) * rational.num) - ((mcm / n.rational.den) * n.rational.num);
-       
-        Rational diff = new Rational(num, mcm);
-        return diff;   
+        int mcm = mcm(this.den, n.den);
+        int num = ((mcm / this.den) * this.num) - ((mcm / n.den) * n.num); 
+
+    	return new Rational(num, mcm);
     }
 
     /*
@@ -129,7 +136,12 @@ public class Rational {
      */
 
     public Rational reciprocal() {
-        return new Rational(rational.den, rational.num);
+		try {
+			return new Rational(this.den, this.num);
+		} catch(Exception e) {
+			System.out.println("Reciprocal unavailable.\n");
+		}
+		return this;
     }
 
     /*
@@ -139,7 +151,7 @@ public class Rational {
      */
 
     public Rational mul(Rational n) {
-        return new Rational(rational.num * n.rational.num, rational.den * n.rational.den);
+        return new Rational(this.num * n.num, this.den * n.den);
     }
 
     
@@ -153,70 +165,34 @@ public class Rational {
         return mul(n.reciprocal());
     }
     
-    //  I METODI EQUALS ECC HANNO BISOGNI CHE VENGA SPECIFICATA PRE POST CONDIZIONE ECC
-
-    /*
-     *  Metodo che controlla se due numeri razionali sono uguali
-     *
-     *  Pre-condizioni: obj non deve essere NULL
-     *  Post-condizioni: Viene restituito true se i due oggetti sono simili (non sono comunque lo stesso oggetto)
-     */
-
+	@Override
     public boolean equals(Object obj) {
         if(!(obj instanceof Rational)) return false;
         Rational other = (Rational) obj;
         
-        if(rational.num == obj.rational.num && rational.den == obj.rational.den) {
+        if(this.num == other.num && this.den == other.den) {
             return true;
         }
         return false;
     }
+ 
+    @Override
+    public int hashCode() {
+		return Objects.hash(this.num, this.den);
+	}
 
-    /*  
-     *  Metodo che genera l'hashcode di un numero razionale
-     *
-     *  Pre-condizioni:
-     *  Effetti collaterali:
-     *  Post-condizioni:
-     */
-    // @Override
-    // public int hashCode() {}
-
-    /*
-     *  Metodo che permette di stampare un numero razionale
-     *
-     *  Effetti collaterali: Standard output viene modificato
-     *  Post-condizioni: Ritorna il numero razionale sottoforma di stringa
-     */
-
+	@Override
     public String toString() {
-        return rational.toString();
+        StringBuilder sb = new StringBuilder();
+		sb.append(this.num);
+		if(this.den != 1) {
+			sb.append('/').append(this.den);
+		}
+		return sb.toString();
     }
 
-    /*
-     *  Metodo che permette di verificare se l'invariante di rappresentazione e' rispettato
-     *
-     *  Post-condizioni: Ritorna true se l'invariante di rappresentazione viene rispettato, false altrimenti
-     */
-
-    private boolean repOk() {
-        return rational.den != 0
-            && rational != null;
-    }
-
-    /*
-     *  Metodo che permette di verificare se l'invariante di rappresentazione e' rispettato
-     *
-     *  Post-condizioni: Ritorna true se l'invariante di rappresentazione viene rispettato, false altrimenti
-     */
-
-    public class Iterator {
-        public hasNext() {}
-
-        public Next() {}
-    }
-
-    public Iterator iterator() {
-        return;
-    }
+	private boolean repOk() {
+        return this.den != 0
+				&& mcd(this.num, this.den) == 1;
+    } 
 }
