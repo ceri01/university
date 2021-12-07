@@ -9,21 +9,13 @@
 
 
 public class Rational {
-    /*
-     *  La struttura dati usata per creare il numero razionale e' un record formato
-     *  da due interi che rappresentano il numeratore e il denominatore
+    /*  Attributi
+     *  Per rappresentare il numero razionale utilizzo due interi.
     */
-    public record Rat(int num, int den) {
-        // VA BENE METTERE IL RECORD A PUBLICI??
-        public Rat{
-            if(den == 0) throw new ArithmeticException("Non e' possibile avere il denominatore = 0");
-        }
-        
-        @Override
-        public String toString() {
-            return num + "\n--\n" + den + "\n";
-        }
-    }
+    
+
+    public final int num;
+    public final int den;
 
     /*
      *  ABS FUNC(rational): rational = +-(num)
@@ -34,11 +26,6 @@ public class Rational {
      *
      *  RAP INV: rational.den != 0, rational != NULL
      */
-
-    // Attributi
-    // VA BENE METTERE GLI ATTRIBUTI PUBLIC FINAL? SI PER OGGETTI IMMUTABILI MA ESSENDO IL RECORD PUBLIC CI SONO PROBLEMI?
-    
-    public final Rat rational;
 
     // Costruttori
     
@@ -52,7 +39,8 @@ public class Rational {
 
     public Rational(int num, int den) {
         int mcd = mcd(num, den);
-        rational = new Rat(num/mcd, den/mcd);
+        this.num = num / mcd;
+        this.den = den / mcd;
     }
 
     // Metodi
@@ -101,8 +89,8 @@ public class Rational {
      */
 
     public Rational simplify() {
-        int mcd = mcd(rational.num, rational.den);
-        Rational new_rational = new Rational(rational.num/mcd, rational.den/mcd);
+        int mcd = mcd(this.num, this.den);
+        Rational new_rational = new Rational(this.num/mcd, this.den/mcd);
         return new_rational;
     }
 
@@ -112,10 +100,9 @@ public class Rational {
      *  Post-condizioni: Restituisce un nuovo numero razionale che rappresenta la somma tra due numeri razionali
      */
 
-    public Rational sum(Rational n) {
-        // SEMPRE PER LA STORIA DEL RECORD PUBLIC POSSO FARE n.rationali, VUOL DIRE ESPORRE LA RAPPRESENTAZIONE? CI POSSO ACCEDERE ANCHE DA FUORI LA CLASSE MA NON POSSO MODIFICARLO, QUINDI VA BENE LO STESSO O ESPONGO LA RAPPRESENTAZIONE?
-        int mcm = mcm(rational.den, n.rational.den);
-        int num = ((mcm / rational.den) * rational.num) + ((mcm / n.rational.den) * n.rational.num);
+    public int sum(Rational n) {
+        int mcm = mcm(this.num, n.den);
+        int num = ((mcm / this.den) * this.num) + ((mcm / n.den) * n.num);
        
         Rational sum = new Rational(num, mcm);
         return sum;

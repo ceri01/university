@@ -237,6 +237,7 @@ public class IntSet implements Iterable {
         changed = false;
         return new Iterator<Iterator>() {
             int nextIndex = 0;
+            
             @Override
             public boolean hasNext() {
                 return nextIndex < dim();
@@ -249,9 +250,5 @@ public class IntSet implements Iterable {
                 return set.get(nextIndex++);
             }
         }
-    }
-
-    public Iterator<Integer> getEvenNumber() {
-        return new FilterIterator<>.iterator(iterator(), new IsEven());
     }
 }

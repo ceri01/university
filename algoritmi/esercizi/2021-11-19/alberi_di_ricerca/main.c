@@ -20,4 +20,6 @@ int main() {
 	printf("\n");
 	Item kek = bist_search(root, "casa");
 	printf("%s --> %d\n", kek.word, kek.n);
+    bist_delete(&root, "basato");
+    bist_order_print(root);
 }

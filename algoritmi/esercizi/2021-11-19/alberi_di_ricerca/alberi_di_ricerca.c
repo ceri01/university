@@ -89,10 +89,10 @@ void bist_insert(Bit_node *r, Item item) {
 		*r = new_node;
 		return;
 	} else {
-		if(strcmp((*r) -> item.word, item.word) < 0) {
+		if(strcmp((*r) -> item.word, item.word) > 0) {
 			bist_insert(&((*r) -> l), item);  
 		}
-		if(strcmp((*r) -> item.word, item.word) > 0) {
+		if(strcmp((*r) -> item.word, item.word) < 0) {
 			bist_insert(&((*r) -> r), item);  
 		}
 	}
@@ -101,9 +101,9 @@ void bist_insert(Bit_node *r, Item item) {
 
 Item bist_search(Bit_node r, char* k) {
 	while(r != NULL) {
-		if(strcmp(r -> item.word, k) < 0) {
+		if(strcmp(r -> item.word, k) > 0) {
 			r = r -> l;
-		} else if(strcmp(r -> item.word, k) > 0) {
+		} else if(strcmp(r -> item.word, k) < 0) {
 			r = r -> r;  
 		} else {
 			return r -> item;
@@ -113,18 +113,58 @@ Item bist_search(Bit_node r, char* k) {
 	printf("Oggetto non trovato\n");
 	return i;
 }
-/*
-int bist_delete(Bit_node *r, char* k) {
-	if(*r != NULL) {
-		if(strcmp((*r) -> item.word, item.word) < 0) {
-			bist_insert(&((*r) -> l), item);  
-		}
-		if(strcmp((*r) -> item.word, item.word) > 0) {
-			bist_insert(&((*r) -> r), item);  
-		}
-	}	
+
+void bist_delete(Bit_node *r, char* k) {
+	Bit_node *curr_node = r;
+    Bit_node father = NULL;
+    
+    while (*curr_node != NULL && strcmp((*curr_node) -> item.word, k) != 0) {
+        father = *curr_node;
+        if(strcmp(k, (*curr_node) -> item.word) < 0) {
+            *curr_node = (*curr_node) -> l;
+        } else {
+            *curr_node = (*curr_node) -> r;
+        }
+    }
+    if(*curr_node != NULL) {
+        if((*curr_node) -> l == NULL) {
+            if(father != NULL) {
+                if(strcmp((*curr_node) -> item.word, father -> item.word) < 0) {
+                    father -> l = (*curr_node) -> r;
+                } else {
+                    father -> r = (*curr_node) -> r;
+                }
+            } else {
+                *r = (*r) -> r;
+            }
+        } else if((*curr_node) -> r == NULL) {
+            if(father != NULL) {
+                if(strcmp((*curr_node) -> item.word, father -> item.word) < 0) {
+                    father -> l = (*curr_node) -> l;
+                } else {
+                    father -> r = (*curr_node) -> l;
+                }
+            } else {
+                *r = (*r) -> l;
+            }
+        } else {
+            Bit_node t = *curr_node;
+            Bit_node m = (*curr_node) -> l;
+            while(m -> r != NULL) {
+                t = m;
+                m = m -> r;
+            }
+            (*curr_node) -> item = m -> item;
+            if(t == *curr_node) {
+                (*curr_node) -> l = m -> l;
+            } else {
+                t -> r = m -> l;
+            }
+        
+        }
+	}
 }
-*/
+
 
 void bist_order_print(Bit_node p) {
 	if(p != NULL) {
