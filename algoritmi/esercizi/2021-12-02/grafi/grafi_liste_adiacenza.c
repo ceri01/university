@@ -1,6 +1,7 @@
 #include "grafi.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "coda/cosa_liste_bidirezionali/l_queue.h"
 
 struct list_node {
 	struct list_node *next;
@@ -23,13 +24,20 @@ Graph graph_new(int n) {
 }
 
 void graph_destroy(Graph g) {
-	for(int i = 0; i < g -> n; i++) {
-		struct list_node tmp, curr;
+	if(g == NULL) {
+        printf("Grafo nullo.\n");
+        return;
+    }
+    for(int i = 0; i < g -> n; i++) {
+		struct list_node *tmp, *curr;
 		curr = g -> A[i];
-		while(g -> A[i] -> next != NULL) {
+        if(curr == 0) {
+            continue;
+        }
+		while(curr -> next != NULL) {
 			tmp = curr -> next;
 			free(curr);
-			curr -> tmp;
+			curr = tmp;
 		}
 	}
 	free(g -> A);
@@ -37,65 +45,103 @@ void graph_destroy(Graph g) {
 }
 
 void graph_edge_insert(Graph g, int v, int w) {
-	if(v == w) {
-		printf("Non e' possibile collegare un nodo a se stesso.\n");
-		break;
-	}
-	if(g -> A[v] == NULL) {
-		g -> A[v] = malloc(sizeof(list_node));
-		g -> A[v] -> v = w;
-		g -> A[v] -> next = NULL;
-		if(g -> A[w] == NULL) {
-			g -> A[w] = malloc(sizeof(list_node));
-			g -> A[w] -> v = v;
-			g -> A[w] -> next = NULL;
-		} else {	
-			struct list_node tmp;
-			while(g -> A[w] -> next != NULL) {
-				tmp = g -> A[w] -> next;
-			}
-			tmp = malloc(sizeof(list_node));
-			tmp -> v = v;
-			tmp -> next = NULL;
-		}
-		break;
-	} else {
-		struct list_node tmp;
-		while(g -> A[v] -> next != NULL) {
-			if(g -> A[v] -> v == w) {
-				printf("Collegamento gia' presente.\n");
-			}
-			tmp = g -> A[v] -> next;
-		}
-		tmp = malloc(sizeof(list_node));
-		tmp -> v = w;
-		tmp -> next = NULL;
-		if(g -> A[w] == NULL) {
-			g -> A[w] = malloc(sizeof(list_node));
-			g -> A[w] -> v = v;
-			g -> A[w] -> next = NULL;
-		} else {	
-			struct list_node tmp;
-			while(g -> A[w] -> next != NULL) {
-				tmp = g -> A[w] -> next;
-			}
-			tmp = malloc(sizeof(list_node));
-			tmp -> v = v;
-			tmp -> next = NULL;
-		}
-		break;
-	}
+    if(g -> n <= 1 || g == NULL) {
+        printf("Grafo non esistente oppure formato da un solo nodo\n");
+        return;
+    }
+    if(v == w) {
+        printf("Impossibile aggiungere un arco da un nodo a se stesso.\n");
+        return;
+    }
+    struct list_node *ptr1, *ptr2;
+    struct list_node *prev = g -> A[v];
+    struct list_node *el1 = malloc(sizeof(struct list_node));
+    el1 -> v = w;
+    el1 -> next = NULL;
+    struct list_node *el2 = malloc(sizeof(struct list_node));	 
+    el2 -> v = v;
+    el2 -> next = NULL;
+    
+    ptr1 = g -> A[v];
+    ptr2 = g -> A[w];
+    
+    while(ptr1 != NULL) {
+        if(ptr1 -> v == w) {
+            printf("Arco gia' presente.\n");
+            return;
+        }
+        prev = ptr1;
+        ptr1 = ptr1 -> next;
+    }
+    if(prev == NULL) {
+        g -> A[v] = el1;    
+    } else {
+        prev -> next = el1;
+    }
+
+    prev = g -> A[w];
+
+    while(ptr2 != NULL) {
+        prev = ptr2;
+        ptr2 = ptr2 -> next;
+    }
+    if(prev == NULL) { 
+        g -> A[w] = el2;    
+    } else {
+        prev -> next = el2;
+    }
+    return;
+}
+
+Graph graph_read() {
+    int n, np, na;
+    printf("Inserisci il numero di nodi del grafo.\n");
+    scanf("%d", &n);
+    if(n <= 0) {
+        printf("Errore, impossibile creare un grafo con meno di 1 nodo.\n");
+    }
+    Graph g = graph_new(n);
+    printf("Inserisci un arco (nodi da 0 a %d).\n", (n - 1));
+    scanf(" %d %d", &np, &na); 
+    while(np > 0 || na > 0) {
+        graph_edge_insert(g, np, na); 
+        printf("Inserisci un arco (nodi da 0 a %d).\n", (n - 1));
+        scanf(" %d %d", &np, &na);
+    }
+    return g;
 }
 
 void graph_print(Graph g) {
-	for(int i = 0; i < g -> n; i++) {
-		struct list_node tmp = g -> A[i];
-		printf("%d) ", i);
+    if(g == NULL) {
+        printf("Il grafo non esiste, ha valore NULL\n");
+        return;
+    }
+	for(int i = 0; i < g -> n && g -> A[i] != NULL; i++) {
+		struct list_node *tmp = g -> A[i];
+		printf("[%d] ", i);
 		printf("%d", g -> A[i] -> v);
 		while(tmp -> next != NULL) {
 			tmp = tmp -> next;
-			printf(" -- %d", tmp -> v);
+			printf(" -> %d", tmp -> v);
 		}
 		printf("\n");
 	}
+}
+
+void dfs(Graph g) {
+
+}
+
+void bfs(Graph g) {
+    Queue q = create_queue(q);
+    int visited[g -> n];
+    
+    enqueue(q, g -> A[0] -> v);
+    visited[0] = g -> A[0] -> v;
+
+    while(!is_empty(q)) {
+        for(int i = front_value(q); g -> A[i] -> next != NULL; i++) {
+                    
+        }    
+    }
 }

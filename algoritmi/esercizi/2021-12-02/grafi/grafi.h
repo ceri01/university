@@ -20,3 +20,7 @@ Graph graph_read(void);
  * vengoono stampati gli archi tra i due nodi
  */
 void graph_print( Graph g );
+
+void dfs(Graph g);
+
+void bfs(Graph g);
