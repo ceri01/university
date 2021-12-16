@@ -2,7 +2,7 @@
 #define LIST_H
 
 struct node {
-    Item info;
+    int info;
     struct node *next;
 	struct node *prev;
 };

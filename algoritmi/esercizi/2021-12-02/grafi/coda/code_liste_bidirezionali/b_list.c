@@ -44,7 +44,7 @@ Node list_delete(int n, Node l) {
 
 void print_list(Node l) {
     for(;l != NULL;) {
-        print_item(l -> info); //print_any(l -> info);
+        printf("%d", l -> info); //print_any(l -> info);
         printf(" ");
 		l = l -> next;
     }

@@ -21,6 +21,14 @@ Graph graph_read(void);
  */
 void graph_print( Graph g );
 
+// Permette di effettuare la visira in profondita' di un grafo
+
 void dfs(Graph g);
+
+// Funzione usata in dfs per effettuare la ricorsione, l'utente non la deve usare
+
+void dfs_rec(Graph g, int i, int *vis);
+
+// Permette di effettuare la visira in ampiezza di un grafo
 
 void bfs(Graph g);

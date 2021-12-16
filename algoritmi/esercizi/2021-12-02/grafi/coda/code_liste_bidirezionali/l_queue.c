@@ -19,6 +19,8 @@ Queue create_queue(Queue q) {
         q -> tail = NULL;
         q -> empty = true;
         q -> elements = 0;   
+    } else {
+        printf("Inizializzare a NULL la variabile per poter creare la coda.\n");
     }
     return q;
 }
@@ -111,7 +113,7 @@ void print_queue(Queue q) {
         if(q -> head != NULL) {
             Node tmp = q -> head;
             while(tmp != NULL) {
-                print_item(tmp -> info);
+                printf("%d", tmp -> info);
                 tmp = tmp -> next;
             }
             printf("\n");
@@ -119,4 +121,5 @@ void print_queue(Queue q) {
         }
     }
 }
+
 

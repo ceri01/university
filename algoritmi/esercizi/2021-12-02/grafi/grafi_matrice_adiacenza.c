@@ -1,6 +1,7 @@
 #include "grafi.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "coda/code_liste_bidirezionali/l_queue.h"
 
 struct graph {
     int n, m; /* n = num vertici, m = num lati */
@@ -68,7 +69,7 @@ void graph_edge_insert(Graph g, int v, int w) {
 Graph graph_read() {
     int n1, n2, limit;
     Graph g;
-    
+    printf("Inserire numero nodi e numero archi da inserire\n"); 
     // inizio: n1 numero nodi, n2 numero archi da inserire
     scanf(" %d %d", &n1, &n2);
     if(n1 > 0 && n2 > ((n1 * n1) - n1)/2) {
@@ -91,14 +92,56 @@ Graph graph_read() {
     return g;
 }
 
-
-
 void graph_print(Graph g) {
     for(int i = 0; i < g -> n; i++) {
         for(int k = i; k < g -> n; k++) {
             if(g -> A[i][k] == 1) {
                 printf("%d <---> %d\n", i, k);
             }
+        }
+    }
+}
+
+void bfs(Graph g) {
+    Queue q = NULL;
+    q = create_queue(q);
+    int *vis = calloc(g -> n, sizeof(int));
+    int i = 0;
+
+    vis[0] = 1;
+    enqueue(q, 0);
+
+    while(!is_empty(q)) {
+        i = dequeue(q);
+        for (int j = 0; j < g -> n; j++) {
+            if(vis[j] == 0 && g -> A[i][j] == 1) {
+                vis[j] = 1;
+                enqueue(q, j);
+            }
+        }
+        printf("%d ", i);
+    }
+    printf("\n");
+}
+
+void dfs(Graph g) {
+    int *vis = calloc(g -> n, sizeof(int));
+    for(int i = 0; i < g -> n; i++) {
+        if(vis[i] != 1) {
+            vis[i] = 1;
+            printf("%d ", i);
+            dfs_rec(g, i, vis);
+        }
+    }
+    printf("\n");
+}
+
+void dfs_rec(Graph g, int i, int *vis) {
+    for(int j = 0; j < g -> n; j++) {
+        if(g -> A[i][j] == 1 && vis[j] != 1) {
+            vis[j] = 1;
+            printf("%d ", j);
+            dfs_rec(g, j, vis);
         }
     }
 }

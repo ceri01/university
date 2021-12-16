@@ -1,7 +1,8 @@
 #include "grafi.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "coda/cosa_liste_bidirezionali/l_queue.h"
+#include "coda/code_liste_bidirezionali/l_queue.h"
+#include <time.h>
 
 struct list_node {
 	struct list_node *next;
@@ -129,19 +130,27 @@ void graph_print(Graph g) {
 }
 
 void dfs(Graph g) {
+    int *vis = calloc(g -> n, sizeof(int));
+    srand(time(NULL));
+    for(int i = (rand() % g -> n); i < g -> n; i++) {
+        if(vis[i] != 1) {
+            printf("%d ", i);
+            dfs_rec(g, i, vis);
+        }
+    }
+}
 
+void dfs_rec(Graph g, int i, int *vis) {
+    struct list_node *tmp = g -> A[i];
+    vis[i] = 1;
+    while(tmp != NULL) {
+        if(vis[tmp -> v] != 1) {
+            printf("%d ", tmp -> v);
+            dfs_rec(g, tmp -> v, vis);
+        }
+        tmp = tmp -> next;
+    }
 }
 
 void bfs(Graph g) {
-    Queue q = create_queue(q);
-    int visited[g -> n];
-    
-    enqueue(q, g -> A[0] -> v);
-    visited[0] = g -> A[0] -> v;
-
-    while(!is_empty(q)) {
-        for(int i = front_value(q); g -> A[i] -> next != NULL; i++) {
-                    
-        }    
-    }
 }
