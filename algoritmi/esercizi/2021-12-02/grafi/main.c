@@ -2,7 +2,7 @@
 
 int main() {
     Graph g = graph_read();
-    dfs(g);
+    bfs(g);
     //graph_print(g);
     graph_destroy(g);
 }

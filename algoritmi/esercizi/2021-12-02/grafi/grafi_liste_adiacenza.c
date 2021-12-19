@@ -153,4 +153,41 @@ void dfs_rec(Graph g, int i, int *vis) {
 }
 
 void bfs(Graph g) {
+    Queue q = create_queue(q);
+    struct list_node * tmp;
+    int i, k = 0, index = 0;
+    int visited[g -> n];
+
+    enqueue(q, 0);
+    visited[0] = 0;
+
+    while(!is_empty(q)) {
+        i = dequeue(q);
+        print_queue(q);
+        tmp = g -> A[i];
+        for(;tmp != NULL;) {
+            while(k <= index && tmp != NULL) {
+                if(visited[k] == tmp -> v) {
+                    tmp = tmp -> next;
+                    k = 0;
+                    continue;
+                }
+                k++;
+            }
+            if(tmp == NULL) {
+                break;
+            }
+            k = 0;
+            enqueue(q, tmp -> v);
+            index++;
+            visited[index] = tmp -> v;
+            tmp = tmp -> next;
+        }
+    }
+
+    for(k = 0; k < g -> n; k++) {
+        printf("%d ", visited[k]);
+    }
+    printf("\n");
+    destroy_queue(&q);
 }
