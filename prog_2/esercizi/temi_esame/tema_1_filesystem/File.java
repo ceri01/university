@@ -7,7 +7,7 @@ package filesystem;
  *
  *	ABS FUN: ABS(name, size, path) = Un file viene rappresentato tramite una stringa (name) che rappresenta il
  *									 nome del file, un intero (size) che rappresenta la dimensione del file e infine
- *									 un attributo di tipo AbsolutePath (path) che rappresenta il percorso del file
+ *									 un attributo di tipo Path (path) che rappresenta il percorso del file
  *
  *	REP INV: name != null
  *			 size != null && size >= 0
@@ -19,7 +19,7 @@ public class File implements Entry {
 	// Attributi		
 	private final String name;
 	private int size;
-	private final AbsolutePath path
+	private final Path path
 	
 	// Costruttore
 	public File(final int size, Path path) {
@@ -43,7 +43,7 @@ public class File implements Entry {
     }   
 
     public Path path() {
-        Path p = new AbsolutePath(this.path);
+        Path p = new Path(this.path);
         return p;
     }   
 	

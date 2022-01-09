@@ -8,7 +8,7 @@ import java.util.HashMap;
  *
  *	ABS FUN: ABS(name, size, path, content) = per rappresentare la una directory utilizziamo una stringa per
  *											  indicare il nome (name), un valore intero per indicare la dimensione (size)
- *											  un attributo di tipo AbsolutePath che indica il percorso della entry (path)
+ *											  un attributo di tipo Path che indica il percorso della entry (path)
  *											  e infine con una mappa di Entry indichiamo il contenuto della directory 
  *											  (content).
  *											  La mappa e' formata da chiave e valore, come chiave abbiamo la path del file o
@@ -29,11 +29,11 @@ public class Directory implements Entry {
 	// Attributi
 	private final String name;
 	private int size;
-	private AbsolutePath path;
+	private Path path;
 	private Map<String, Entry> content;
 
 	//Costruttore
-    public Directory(AbsolutePath path) {
+    public Directory(Path path) {
         if(path == null) throw new IllegalArgumentException("Il percorso del file non puo' essere nullo");
 		this.name = path.name();
         this.size = 0;

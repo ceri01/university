@@ -25,7 +25,7 @@ public class Filesystem {
 	private final Directory root;
 
 	//Costruttore
-	public Filesystem() {
+	private Filesystem() {
 		this.root = new Directory() ;
 	}
 
