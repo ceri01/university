@@ -3,6 +3,7 @@ package main
 import (
 	"elaborazione_serie_interi/funzioni"
 	"fmt"
+	"os"
 )
 
 func main() {
@@ -13,7 +14,8 @@ func main() {
 	for i := 0; i < N; i++ {
 		_, err = fmt.Scan(&numeri[i])
 		if err != nil {
-			return
+			fmt.Println("Errore nell'input")
+			os.Exit(-1)
 		}
 	}
 
