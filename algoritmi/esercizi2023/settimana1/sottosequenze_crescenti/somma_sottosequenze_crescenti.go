@@ -1,1 +1,1 @@
-package sottosequenze_crescenti
+package main
