@@ -1,5 +1,5 @@
-package Ordinamento
+package ordinamento
 
-func bubble_sort() {
+func Bubble_sort() {
 
 }

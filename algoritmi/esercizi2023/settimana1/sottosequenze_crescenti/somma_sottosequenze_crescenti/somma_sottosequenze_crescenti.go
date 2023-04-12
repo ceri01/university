@@ -1,1 +1,1 @@
-package main
+package somma_sottosequenze_crescenti

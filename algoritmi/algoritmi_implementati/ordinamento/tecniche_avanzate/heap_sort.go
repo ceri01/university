@@ -1,5 +1,5 @@
-package Ordinamento
+package ordinamento
 
-func heap_sort() {
+func Heap_sort() {
 
 }

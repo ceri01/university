@@ -1,5 +1,5 @@
-package Ordinamento
+package ordinamento
 
-func quick_sort() {
+func Quick_sort() {
 
 }

@@ -1,5 +1,5 @@
-package Ordinamento
+package ordinamento
 
-func merge_sort() {
+func Merge_sort() {
 
 }

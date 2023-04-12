@@ -1,5 +1,5 @@
-package Ordinamento
+package ordinamento
 
-func insertion_sort() {
+func Insertion_sort() {
 
 }
