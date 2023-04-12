@@ -46,3 +46,9 @@ func Ricerca_max(arr []int) int {
 	}
 	return max
 }
+
+func Swap(arr []int, pos1, pos2 int) {
+	tmp := arr[pos1]
+	arr[pos1] = arr[pos2]
+	arr[pos2] = tmp
+}
