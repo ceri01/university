@@ -1,8 +1,9 @@
 package main
 
 import (
-	ordinamento2 "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecniche_avanzate"
-	ordinamento "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecniche_base"
+	advancedOrder "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecniche_avanzate"
+	baseOrder "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecniche_base"
+	linkedList "algoritmi/algoritmi/algoritmi_implementati/struttureDati"
 	"fmt"
 )
 
@@ -12,12 +13,13 @@ func main() {
 	arrBubble := []int{47, 12, 12, 7, 25, 1, 65}
 	arrMerge := []int{16, 3, 45, 22, 252, 56, 5}
 	arrQuick := []int{123, 431, 84, 732, 22, 1, -3, 32}
+	list := new(linkedList.LinkedList)
 
-	ordinamento.Selection_sort(arrSelection)
-	ordinamento.Insertion_sort(arrInsertion)
-	ordinamento.Bubble_sort(arrBubble)
-	ordinamento2.Merge_sort(arrMerge)
-	ordinamento2.Quick_sort(arrQuick)
+	baseOrder.Selection_sort(arrSelection)
+	baseOrder.Insertion_sort(arrInsertion)
+	baseOrder.Bubble_sort(arrBubble)
+	advancedOrder.Merge_sort(arrMerge)
+	advancedOrder.Quick_sort(arrQuick)
 
 	fmt.Println("Array ordinato con Selectionsort")
 	for _, el := range arrSelection {
@@ -46,4 +48,47 @@ func main() {
 		fmt.Printf("%d ", el)
 	}
 	fmt.Println("")
+
+	linkedList.PrintList(list)
+	linkedList.InsertHead(list, 10)
+	linkedList.InsertHead(list, 5)
+	linkedList.InsertHead(list, 3)
+	linkedList.InsertTail(list, 4)
+	linkedList.PrintList(list)
+
+	isPresent, el := linkedList.SearchByKey(list, 5)
+	fmt.Println(isPresent, el.Key)
+	isPresent, el = linkedList.SearchByKey(list, 12)
+	fmt.Println(isPresent, el) // se el è nil non si può chiamare .Key
+	fmt.Println(linkedList.SearchByKey(nil, 12))
+
+	fmt.Println(linkedList.SearchByPosition(list, 3))
+	fmt.Println(linkedList.SearchByPosition(list, 4))
+	fmt.Println(linkedList.SearchByPosition(list, -2))
+	fmt.Println(linkedList.SearchByPosition(list, 1))
+	fmt.Println(linkedList.SearchByPosition(nil, 1))
+
+	/* test removeByVal (works)
+	linkedList.PrintList(list)
+	linkedList.RemoveByVal(list, 3)
+	linkedList.PrintList(list)
+	linkedList.RemoveByVal(list, 5)
+	linkedList.PrintList(list)
+	linkedList.RemoveByVal(list, 10)
+	linkedList.PrintList(list)
+	linkedList.RemoveByVal(list, 4)
+	linkedList.PrintList(list)
+	*/
+
+	linkedList.PrintList(list)
+	linkedList.RemoveByposition(list, -1)
+	linkedList.PrintList(list)
+	linkedList.RemoveByposition(list, -1)
+	linkedList.PrintList(list)
+	linkedList.RemoveByposition(list, -1)
+	linkedList.PrintList(list)
+	linkedList.RemoveByposition(list, -1)
+	linkedList.PrintList(list)
+	linkedList.RemoveByposition(list, -1)
+	linkedList.PrintList(list)
 }
