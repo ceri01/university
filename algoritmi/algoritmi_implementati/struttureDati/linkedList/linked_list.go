@@ -1,50 +1,36 @@
-package struttureDati
+package linkedList
 
 import (
+	util "algoritmi/algoritmi/algoritmi_implementati/struttureDati"
 	"fmt"
 )
 
-type ListNode struct {
-	Key  int // In questo caso Key è la chiave, ma possiamo aggiungere altri campi
-	next *ListNode
-}
-
 type LinkedList struct {
-	head *ListNode
-}
-
-func newNode(val int) *ListNode {
-	// non è necessario deferenziare i puntatori in Go, infatti non è necessario dichiarare var node = *listNode
-	// e utilizzarlo come in C.
-	node := new(ListNode)
-	node.Key = val
-	node.next = nil
-	return node
-	// node = &listNode{val, nil} => versione più breve delle tre righe sopra
+	head *util.ListNode
 }
 
 func InsertHead(list *LinkedList, val int) { // Tempo costante => O(1)
 	// Era possibile passare la lista normalmente e poi restituire la lista modificata, ma il chiamante avrebbe dovuto
 	// fare un assegnamento. In questo modo basterà passare l'indirizzo della lista.
-	node := newNode(val)
-	node.next = list.head
+	node := util.NewNode(val)
+	node.Next = list.head
 	list.head = node
 }
 
 func InsertTail(list *LinkedList, val int) { // Tempo lineare => O(n)
-	node := newNode(val)
+	node := util.NewNode(val)
 	el := list.head
-	for el.next != nil {
-		el = el.next
+	for el.Next != nil {
+		el = el.Next
 	}
-	el.next = node
+	el.Next = node
 }
 
-func SearchByKey(list *LinkedList, key int) (bool, *ListNode) { // Tempo lineare => O(n)
+func SearchByKey(list *LinkedList, key int) (bool, *util.ListNode) { // Tempo lineare => O(n)
 	if list != nil {
 		el := list.head
 		for el != nil && el.Key != key {
-			el = el.next
+			el = el.Next
 		}
 		if el != nil {
 			return true, el
@@ -53,11 +39,11 @@ func SearchByKey(list *LinkedList, key int) (bool, *ListNode) { // Tempo lineare
 	return false, nil
 }
 
-func SearchByPosition(list *LinkedList, position int) (bool, *ListNode) { // Tempo lineare => O(n)
+func SearchByPosition(list *LinkedList, position int) (bool, *util.ListNode) { // Tempo lineare => O(n)
 	if list != nil && position >= 0 {
 		el := list.head
 		for i := 0; el != nil && i < position; i++ {
-			el = el.next
+			el = el.Next
 		}
 		if el != nil {
 			return true, el
@@ -68,35 +54,35 @@ func SearchByPosition(list *LinkedList, position int) (bool, *ListNode) { // Tem
 
 func RemoveByVal(list *LinkedList, key int) { // Tempo lineare => O(n)
 	if list != nil {
-		var prev *ListNode = nil
+		var prev *util.ListNode = nil
 		el := list.head
 		for el != nil && el.Key != key {
 			prev = el
-			el = el.next
+			el = el.Next
 		}
 		if el != nil {
 			if prev == nil {
-				list.head = el.next
+				list.head = el.Next
 			} else {
-				prev.next = el.next
+				prev.Next = el.Next
 			}
 		}
 	}
 }
 
-func RemoveByposition(list *LinkedList, position int) { // Tempo lineare => O(n)
-	if list != nil && position > 0 {
-		var prev *ListNode = nil
+func RemoveByPosition(list *LinkedList, position int) { // Tempo lineare => O(n)
+	if list != nil && position >= 0 {
+		var prev *util.ListNode = nil
 		el := list.head
 		for i := 0; el != nil && i < position; i++ {
 			prev = el
-			el = el.next
+			el = el.Next
 		}
 		if el != nil {
 			if prev == nil {
-				list.head = el.next
+				list.head = el.Next
 			} else {
-				prev.next = el.next
+				prev.Next = el.Next
 			}
 		}
 	}
@@ -106,9 +92,9 @@ func PrintList(list *LinkedList) { // Tempo lineare => O(n)
 	if list.head != nil {
 		el := list.head
 		fmt.Print("[")
-		for el.next != nil {
+		for el.Next != nil {
 			fmt.Printf("%d ", el.Key)
-			el = el.next
+			el = el.Next
 		}
 		fmt.Printf("%d]\n", el.Key)
 	} else {
