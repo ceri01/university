@@ -1,49 +1,50 @@
-package struttureDati
+package orderedLinkedList
 
 import (
+	util "algoritmi/algoritmi/algoritmi_implementati/struttureDati"
 	"fmt"
 )
 
 type OrderedLinkedList struct {
-	head *ListNode
+	head *util.ListNode
 }
 
 func Insert(list *OrderedLinkedList, val int) { // Tempo lineare => O(n)
 	if list != nil {
-		node := newNode(val)
+		node := util.NewNode(val)
 		el := list.head
-		var prev *ListNode = nil
+		var prev *util.ListNode = nil
 		for el != nil && el.Key <= val {
 			prev = el
-			el = el.next
+			el = el.Next
 		}
 		if prev != nil {
-			prev.next = node
+			prev.Next = node
 		} else {
 			list.head = node
 		}
-		node.next = el
+		node.Next = el
 	}
 }
 
-/*func SearchByKey(list *OrderedLinkedList, key int) (bool, *ListNode) { // Tempo lineare => O(n)
+func SearchByKey(list *OrderedLinkedList, key int) (bool, *util.ListNode) { // Tempo lineare => O(n)
 	if list != nil {
 		el := list.head
-		for el != nil && el.Key != key {
-			el = el.next
+		for el != nil && el.Key < key {
+			el = el.Next
 		}
-		if el != nil {
+		if el != nil && el.Key == key {
 			return true, el
 		}
 	}
 	return false, nil
 }
 
-func SearchByPosition(list *OrderedLinkedList, position int) (bool, *ListNode) { // Tempo lineare => O(n)
+func SearchByPosition(list *OrderedLinkedList, position int) (bool, *util.ListNode) { // Tempo lineare => O(n)
 	if list != nil && position >= 0 {
 		el := list.head
 		for i := 0; el != nil && i < position; i++ {
-			el = el.next
+			el = el.Next
 		}
 		if el != nil {
 			return true, el
@@ -54,47 +55,47 @@ func SearchByPosition(list *OrderedLinkedList, position int) (bool, *ListNode) {
 
 func RemoveByVal(list *OrderedLinkedList, key int) { // Tempo lineare => O(n)
 	if list != nil {
-		var prev *ListNode = nil
+		var prev *util.ListNode = nil
 		el := list.head
-		for el != nil && el.Key != key {
+		for el != nil && el.Key < key {
 			prev = el
-			el = el.next
+			el = el.Next
 		}
-		if el != nil {
+		if el != nil && el.Key == key {
 			if prev == nil {
-				list.head = el.next
+				list.head = el.Next
 			} else {
-				prev.next = el.next
+				prev.Next = el.Next
 			}
 		}
 	}
 }
 
-func RemoveByposition(list *OrderedLinkedList, position int) { // Tempo lineare => O(n)
-	if list != nil && position > 0 {
-		var prev *ListNode = nil
+func RemoveByPosition(list *OrderedLinkedList, position int) { // Tempo lineare => O(n)
+	if list != nil && position >= 0 {
+		var prev *util.ListNode = nil
 		el := list.head
 		for i := 0; el != nil && i < position; i++ {
 			prev = el
-			el = el.next
+			el = el.Next
 		}
 		if el != nil {
 			if prev == nil {
-				list.head = el.next
+				list.head = el.Next
 			} else {
-				prev.next = el.next
+				prev.Next = el.Next
 			}
 		}
 	}
-}*/
+}
 
-func PrintOrderedLinkedList(list *OrderedLinkedList) { // Tempo lineare => O(n)
+func PrintList(list *OrderedLinkedList) { // Tempo lineare => O(n)
 	if list.head != nil {
 		el := list.head
 		fmt.Print("[")
-		for el.next != nil {
+		for el.Next != nil {
 			fmt.Printf("%d ", el.Key)
-			el = el.next
+			el = el.Next
 		}
 		fmt.Printf("%d]\n", el.Key)
 	} else {
