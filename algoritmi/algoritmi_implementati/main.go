@@ -5,6 +5,7 @@ import (
 	baseOrder "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecniche_base"
 	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/linkedList"
 	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/orderedLinkedList"
+	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/stack"
 	"fmt"
 )
 
@@ -171,4 +172,62 @@ func main() {
 	ordLnkdList.PrintList()
 	ordLnkdList.RemoveByPosition(0)
 	ordLnkdList.PrintList()
+
+	// Test array stack
+	fmt.Println("\n\n##### Test Array Stack #####")
+	fmt.Println()
+
+	arrStk := stack.CreateArrayStack()
+	fmt.Println(arrStk.IsEmpty())
+	arrStk.PrintStack()
+	arrStk.Push(2)
+	arrStk.Push(5)
+	// Se lo stack viene implementato con una dimensione troppo bassa (es: 3) e vengono aggiunti degli elementi si avrà un errore.
+	// Ma è normale che sia cosi, è proprio un problema implementativo
+	// arrStk.Push(5)
+	// arrStk.Push(5)
+	arrStk.PrintStack()
+	fmt.Println(arrStk.IsEmpty())
+	fmt.Println(arrStk.Top())
+	arrStk.PrintStack()
+	arrStk.Pop()
+	arrStk.PrintStack()
+	fmt.Println(arrStk.Top())
+
+	// Test list stack
+	fmt.Println("\n\n##### Test List Stack #####")
+	fmt.Println()
+
+	lstStk := stack.CreateListStack()
+	fmt.Println(lstStk.IsEmpty())
+	lstStk.PrintStack()
+	lstStk.Push(2)
+	lstStk.Push(5)
+	lstStk.PrintStack()
+	fmt.Println(lstStk.IsEmpty())
+	fmt.Println(lstStk.Top())
+	lstStk.PrintStack()
+	lstStk.Pop()
+	lstStk.PrintStack()
+	fmt.Println(lstStk.Top())
+
+	// Test Customlist stack
+	fmt.Println("\n\n##### Test Custom List Stack #####")
+	fmt.Println()
+	cstLstStk := stack.CreateCustomListStack()
+	fmt.Println(cstLstStk.IsEmpty())
+	cstLstStk.PrintStack()
+	cstLstStk.Push(2)
+	cstLstStk.Push(5)
+	cstLstStk.Push(2)
+	cstLstStk.Push(4)
+	cstLstStk.Push(2)
+	cstLstStk.Push(9)
+	cstLstStk.PrintStack()
+	fmt.Println(cstLstStk.IsEmpty())
+	fmt.Println(cstLstStk.Top())
+	cstLstStk.PrintStack()
+	cstLstStk.Pop()
+	cstLstStk.PrintStack()
+	fmt.Println(cstLstStk.Top())
 }
