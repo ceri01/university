@@ -9,7 +9,7 @@ type OrderedLinkedList struct {
 	head *util.ListNode
 }
 
-func Insert(list *OrderedLinkedList, val int) { // Tempo lineare => O(n)
+func (list *OrderedLinkedList) Insert(val int) { // Tempo lineare => O(n)
 	if list != nil {
 		node := util.NewNode(val)
 		el := list.head
@@ -27,7 +27,7 @@ func Insert(list *OrderedLinkedList, val int) { // Tempo lineare => O(n)
 	}
 }
 
-func SearchByKey(list *OrderedLinkedList, key int) (bool, *util.ListNode) { // Tempo lineare => O(n)
+func (list *OrderedLinkedList) SearchByKey(key int) (bool, *util.ListNode) { // Tempo lineare => O(n)
 	if list != nil {
 		el := list.head
 		for el != nil && el.Key < key {
@@ -40,7 +40,7 @@ func SearchByKey(list *OrderedLinkedList, key int) (bool, *util.ListNode) { // T
 	return false, nil
 }
 
-func SearchByPosition(list *OrderedLinkedList, position int) (bool, *util.ListNode) { // Tempo lineare => O(n)
+func (list *OrderedLinkedList) SearchByPosition(position int) (bool, *util.ListNode) { // Tempo lineare => O(n)
 	if list != nil && position >= 0 {
 		el := list.head
 		for i := 0; el != nil && i < position; i++ {
@@ -53,7 +53,7 @@ func SearchByPosition(list *OrderedLinkedList, position int) (bool, *util.ListNo
 	return false, nil
 }
 
-func RemoveByVal(list *OrderedLinkedList, key int) { // Tempo lineare => O(n)
+func (list *OrderedLinkedList) RemoveByVal(key int) { // Tempo lineare => O(n)
 	if list != nil {
 		var prev *util.ListNode = nil
 		el := list.head
@@ -71,7 +71,7 @@ func RemoveByVal(list *OrderedLinkedList, key int) { // Tempo lineare => O(n)
 	}
 }
 
-func RemoveByPosition(list *OrderedLinkedList, position int) { // Tempo lineare => O(n)
+func (list *OrderedLinkedList) RemoveByPosition(position int) { // Tempo lineare => O(n)
 	if list != nil && position >= 0 {
 		var prev *util.ListNode = nil
 		el := list.head
@@ -89,7 +89,7 @@ func RemoveByPosition(list *OrderedLinkedList, position int) { // Tempo lineare 
 	}
 }
 
-func PrintList(list *OrderedLinkedList) { // Tempo lineare => O(n)
+func (list *OrderedLinkedList) PrintList() { // Tempo lineare => O(n)
 	if list.head != nil {
 		el := list.head
 		fmt.Print("[")

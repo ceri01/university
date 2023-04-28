@@ -9,7 +9,7 @@ type LinkedList struct {
 	head *util.ListNode
 }
 
-func InsertHead(list *LinkedList, val int) { // Tempo costante => O(1)
+func (list *LinkedList) InsertHead(val int) { // Tempo costante => O(1)
 	// Era possibile passare la lista normalmente e poi restituire la lista modificata, ma il chiamante avrebbe dovuto
 	// fare un assegnamento. In questo modo basterà passare l'indirizzo della lista.
 	node := util.NewNode(val)
@@ -17,7 +17,7 @@ func InsertHead(list *LinkedList, val int) { // Tempo costante => O(1)
 	list.head = node
 }
 
-func InsertTail(list *LinkedList, val int) { // Tempo lineare => O(n)
+func (list *LinkedList) InsertTail(val int) { // Tempo lineare => O(n)
 	node := util.NewNode(val)
 	el := list.head
 	for el.Next != nil {
@@ -26,7 +26,7 @@ func InsertTail(list *LinkedList, val int) { // Tempo lineare => O(n)
 	el.Next = node
 }
 
-func SearchByKey(list *LinkedList, key int) (bool, *util.ListNode) { // Tempo lineare => O(n)
+func (list *LinkedList) SearchByKey(key int) (bool, *util.ListNode) { // Tempo lineare => O(n)
 	if list != nil {
 		el := list.head
 		for el != nil && el.Key != key {
@@ -39,7 +39,7 @@ func SearchByKey(list *LinkedList, key int) (bool, *util.ListNode) { // Tempo li
 	return false, nil
 }
 
-func SearchByPosition(list *LinkedList, position int) (bool, *util.ListNode) { // Tempo lineare => O(n)
+func (list *LinkedList) SearchByPosition(position int) (bool, *util.ListNode) { // Tempo lineare => O(n)
 	if list != nil && position >= 0 {
 		el := list.head
 		for i := 0; el != nil && i < position; i++ {
@@ -52,7 +52,7 @@ func SearchByPosition(list *LinkedList, position int) (bool, *util.ListNode) { /
 	return false, nil
 }
 
-func RemoveByVal(list *LinkedList, key int) { // Tempo lineare => O(n)
+func (list *LinkedList) RemoveByVal(key int) { // Tempo lineare => O(n)
 	if list != nil {
 		var prev *util.ListNode = nil
 		el := list.head
@@ -70,7 +70,7 @@ func RemoveByVal(list *LinkedList, key int) { // Tempo lineare => O(n)
 	}
 }
 
-func RemoveByPosition(list *LinkedList, position int) { // Tempo lineare => O(n)
+func (list *LinkedList) RemoveByPosition(position int) { // Tempo lineare => O(n)
 	if list != nil && position >= 0 {
 		var prev *util.ListNode = nil
 		el := list.head
@@ -88,7 +88,7 @@ func RemoveByPosition(list *LinkedList, position int) { // Tempo lineare => O(n)
 	}
 }
 
-func PrintList(list *LinkedList) { // Tempo lineare => O(n)
+func (list *LinkedList) PrintList() { // Tempo lineare => O(n)
 	if list.head != nil {
 		el := list.head
 		fmt.Print("[")
