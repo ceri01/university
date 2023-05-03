@@ -5,6 +5,7 @@ import (
 	baseOrder "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecniche_base"
 	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/linkedList"
 	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/orderedLinkedList"
+	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/queue"
 	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/stack"
 	"fmt"
 )
@@ -186,8 +187,8 @@ func main() {
 	arrStk.Push(5)
 	// Se lo stack viene implementato con una dimensione troppo bassa (es: 3) e vengono aggiunti degli elementi si avrà un errore.
 	// Ma è normale che sia cosi, è proprio un problema implementativo
-	// arrStk.Push(5)
-	// arrStk.Push(5)
+	// arrStk.Enqueue(5)
+	// arrStk.Enqueue(5)
 	arrStk.PrintStack()
 	fmt.Println(arrStk.IsEmpty())
 	fmt.Println(arrStk.Top())
@@ -289,4 +290,32 @@ func main() {
 	dlnkdList.PrintList()
 	dlnkdList.RemoveByPosition(0)
 	dlnkdList.PrintList()
+
+	// Test array stack
+	fmt.Println("\n\n##### Test Array Queue #####")
+	fmt.Println()
+
+	arrQue := queue.CreateArrayQueue()
+	fmt.Println(arrQue.IsEmpty())
+	arrQue.PrintQueue()
+	arrQue.Enqueue(2)
+	arrQue.Enqueue(5)
+	arrQue.Enqueue(1)
+	arrQue.Enqueue(7)
+	arrQue.Enqueue(4)
+	arrQue.PrintQueue()
+	arrQue.Dequeue()
+	arrQue.PrintQueue()
+	arrQue.Dequeue()
+	arrQue.PrintQueue()
+	arrQue.Dequeue()
+	arrQue.PrintQueue()
+	arrQue.Dequeue()
+	arrQue.PrintQueue()
+	arrQue.Enqueue(7)
+	arrQue.Enqueue(4)
+	arrQue.PrintQueue()
+	arrQue.Dequeue()
+	arrQue.PrintQueue()
+	fmt.Println(arrQue.First())
 }

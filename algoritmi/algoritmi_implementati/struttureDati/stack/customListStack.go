@@ -38,7 +38,7 @@ func (stack *CustomListStack) Pop() int { // Costo tempo => Costante O(1)
 	stack.list.RemoveByPosition(0)
 	_, stack.top = stack.list.SearchByPosition(0)
 	// Anche in questo caso vengono utilizzate delle funzioni con costo di tempo lineare, ma anche qui viene vincolato il caso migliore
-	// che ha tempo costante, quindi possiamo dire che il costo di tempo della funzione Pop è costante
+	// che ha tempo costante, quindi possiamo dire che il costo di tempo della funzione Dequeue è costante
 	return el
 }
 
