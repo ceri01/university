@@ -6,14 +6,14 @@ package util
 	Spazio costante, non vengono create variabili
 */
 
-func Max_int(a, b int) int {
+func MaxInt(a, b int) int {
 	if a >= b {
 		return a
 	}
 	return b
 }
 
-func Min_int(a, b int) int {
+func MinInt(a, b int) int {
 	if a <= b {
 		return a
 	}
@@ -25,7 +25,7 @@ func Min_int(a, b int) int {
 	Costo spazio = O(1) creo due variabili
 */
 
-func Ricerca_min(arr []int) int {
+func RicercaMin(arr []int) int {
 	min := 0
 	dim := len(arr)
 	for i := 1; i < dim; i++ {
@@ -36,7 +36,7 @@ func Ricerca_min(arr []int) int {
 	return min
 }
 
-func Ricerca_max(arr []int) int {
+func RicercaMax(arr []int) int {
 	max := 0
 	dim := len(arr)
 	for i := 1; i < dim; i++ {
