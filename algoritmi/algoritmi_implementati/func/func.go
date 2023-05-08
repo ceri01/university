@@ -1,4 +1,4 @@
-package util
+package _func
 
 /*	Max e Min tra interi
 	Costo = 1 confronto

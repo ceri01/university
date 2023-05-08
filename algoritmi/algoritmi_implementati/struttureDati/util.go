@@ -31,3 +31,23 @@ func NewDoubleNode(val int) *ListNodeDouble {
 	return node
 	// node = &listNode{val, nil} => versione più breve delle tre righe sopra
 }
+
+type BiTreeNode struct {
+	Left  *BiTreeNode
+	Right *BiTreeNode
+	Val   int
+}
+
+func NewTreeNode(val int) *BiTreeNode {
+	node := new(BiTreeNode)
+	node.Val = val
+	node.Left = nil
+	node.Right = nil
+	return node
+}
+
+type BiSearchTree struct { // Messo qui per evitare problema degli import ciclici
+	Val   int
+	Left  *BiSearchTree
+	Right *BiSearchTree
+}

@@ -3,10 +3,12 @@ package main
 import (
 	advancedOrder "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecniche_avanzate"
 	baseOrder "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecniche_base"
+	util "algoritmi/algoritmi/algoritmi_implementati/struttureDati"
 	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/linkedList"
 	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/orderedLinkedList"
 	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/queue"
 	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/stack"
+	tree "algoritmi/algoritmi/algoritmi_implementati/struttureDati/tree"
 	"fmt"
 )
 
@@ -388,4 +390,86 @@ func main() {
 	cstLstQue.Dequeue()
 	cstLstQue.PrintQueue()
 	fmt.Println(cstLstQue.First())
+
+	// Test Binary Tree view
+	fmt.Println("\n\n##### Test Binary tree view #####")
+
+	t := tree.CreateBinaryTree()
+	t.Root = &util.BiTreeNode{Val: 50, Left: nil, Right: nil}
+	t.Root.Left = util.NewTreeNode(20)
+	t.Root.Right = util.NewTreeNode(80)
+	t.Root.Left.Left = util.NewTreeNode(10)
+	t.Root.Left.Right = util.NewTreeNode(8)
+	t.Root.Right.Left = util.NewTreeNode(45)
+	t.Root.Right.Right = util.NewTreeNode(2)
+	t.Root.Left.Left.Left = util.NewTreeNode(4)
+	t.Root.Left.Left.Right = util.NewTreeNode(43)
+	t.Root.Left.Right.Left = util.NewTreeNode(67)
+	t.Root.Left.Right.Right = util.NewTreeNode(22)
+	t.Root.Right.Left.Left = util.NewTreeNode(453)
+	t.Root.Right.Left.Right = util.NewTreeNode(32)
+	t.Root.Right.Right.Left = util.NewTreeNode(88)
+	t.Root.Right.Right.Right = util.NewTreeNode(7)
+
+	t.BFS()
+	t.DFS(tree.InOrder)
+	t.DFS(tree.PreOrder)
+	t.DFS(tree.PostOrder)
+	fmt.Println(t.Nnode(t.Root))
+
+	// Test Binary Search Tree
+	fmt.Println("\n\n##### Test Binary Search tree #####")
+	st := tree.CreateBinarySearchTree(8)
+	tree.InsertRecursive(st, 4)
+	tree.InsertRecursive(st, 0)
+	tree.InsertRecursive(st, -1)
+	tree.InsertRecursive(st, 6)
+	tree.InsertRecursive(st, 7)
+	tree.InsertIterative(st, 15)
+	tree.InsertIterative(st, 10)
+	tree.InsertIterative(st, 11)
+	tree.InsertIterative(st, 19)
+	tree.InsertIterative(st, 20)
+
+	tree.DFS(st, tree.InOrderSearchBiTree)
+	tree.BFS(st)
+	fmt.Println(tree.Max(st))
+	tree.SummaryView(st, 0)
+	fmt.Println(tree.FindRecursive(st, 45))
+	fmt.Println(tree.FindRecursive(st, 90))
+	fmt.Println(tree.FindIterative(st, -1))
+	fmt.Println(tree.FindIterative(st, 50))
+
+	fmt.Println("##DELETES BINARY SEARCH TREE##")
+	// delete node with 1 child
+	fmt.Println("cancel 7")
+	tree.Remove(st, 7)
+	tree.SummaryView(st, 0)
+	tree.InsertRecursive(st, 7)
+	fmt.Println("cancel 0")
+	tree.Remove(st, 0)
+	tree.SummaryView(st, 0)
+	tree.InsertRecursive(st, 0)
+	fmt.Println("cancel 10")
+	tree.Remove(st, 10)
+	tree.SummaryView(st, 0)
+	tree.InsertRecursive(st, 10)
+	fmt.Println("cancel 19")
+	tree.Remove(st, 19)
+	tree.SummaryView(st, 0)
+
+	// delete leaf
+	fmt.Println("cancel 20")
+	tree.Remove(st, 20)
+	tree.SummaryView(st, 0)
+
+	// delete node with 2 children
+	fmt.Println("cancel 4")
+	tree.Remove(st, 4)
+	tree.SummaryView(st, 0)
+
+	// delete root
+	fmt.Println("cancel 8")
+	tree.Remove(st, 8)
+	tree.SummaryView(st, 0)
 }

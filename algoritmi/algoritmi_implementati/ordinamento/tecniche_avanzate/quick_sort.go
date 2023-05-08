@@ -1,6 +1,6 @@
 package ordinamento
 
-import "algoritmi/algoritmi/algoritmi_implementati/util"
+import "algoritmi/algoritmi/algoritmi_implementati/func"
 
 func partitioning(arr []int, i int, f int) int {
 	pivot := arr[i]
@@ -14,10 +14,10 @@ func partitioning(arr []int, i int, f int) int {
 			sx++
 		}
 		if sx < dx {
-			util.Swap(arr, sx, dx)
+			_func.Swap(arr, sx, dx)
 		}
 	}
-	util.Swap(arr, i, dx)
+	_func.Swap(arr, i, dx)
 	return dx
 }
 
