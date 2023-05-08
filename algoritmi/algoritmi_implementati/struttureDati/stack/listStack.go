@@ -17,7 +17,13 @@ func (stack *ListStack) IsEmpty() bool { // Costo tempo => costante O(1)
 	return stack.top == -1
 }
 
-func (stack *ListStack) Push(val int) { // Costo tempo => costante O(1)
+func (stack *ListStack) Push(val int) {
+	/*
+		Costo tempo:
+			Caso migliore => costante O(1)
+			Caso peggiore => O(n)
+			Questi costi sono dati dalla append che per come è implementata ha questa complessità
+	*/
 	stack.top++
 	stack.list = append(stack.list, val)
 }

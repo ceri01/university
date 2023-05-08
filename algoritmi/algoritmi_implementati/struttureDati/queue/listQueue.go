@@ -15,7 +15,13 @@ func (queue *ListQueue) IsEmpty() bool { // Costo tempo => costante O(1)
 	return len(queue.list) == 0
 }
 
-func (queue *ListQueue) Enqueue(val int) { // Costo tempo => costante O(1)
+func (queue *ListQueue) Enqueue(val int) {
+	/*
+		Costo tempo:
+			Caso migliore => costante O(1)
+			Caso peggiore => O(n)
+			Questi costi sono dati dalla append che per come è implementata ha questa complessità
+	*/
 	queue.list = append(queue.list, val)
 }
 

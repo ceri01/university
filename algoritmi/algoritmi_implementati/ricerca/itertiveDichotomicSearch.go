@@ -1,11 +1,11 @@
 package ricerca
 
 /*	ricerca dicotomica iterativa in un array ORDINATO
-	Costo tempo = O(lon(n))
+	Costo tempo = O(log(n))
 	Costo spazio = O(1) creo quattro variabili
 */
 
-func ricerca_dicotomica_iterativa(arr []int, toFind int) int {
+func itertiveDichotomicSearch(arr []int, toFind int) int {
 	isx := 0        // indice sinistro
 	idx := len(arr) // indice destro
 	i := -1         // indice elemento da trovare

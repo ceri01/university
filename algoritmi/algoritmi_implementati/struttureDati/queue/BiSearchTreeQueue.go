@@ -17,7 +17,13 @@ func (treeNode *BiSearchTreeQueue) IsEmpty() bool { // Costo tempo => costante O
 	return len(treeNode.list) == 0
 }
 
-func (treeNode *BiSearchTreeQueue) Enqueue(val *util.BiSearchTree) { // Costo tempo => costante O(1)
+func (treeNode *BiSearchTreeQueue) Enqueue(val *util.BiSearchTree) {
+	/*
+		Costo tempo:
+			Caso migliore => costante O(1)
+			Caso peggiore => O(n)
+			Questi costi sono dati dalla append che per come è implementata ha questa complessità
+	*/
 	treeNode.list = append(treeNode.list, val)
 }
 

@@ -1,8 +1,8 @@
 package main
 
 import (
-	advancedOrder "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecniche_avanzate"
-	baseOrder "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecniche_base"
+	advancedOrder "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecnicheAvanzate"
+	baseOrder "algoritmi/algoritmi/algoritmi_implementati/ordinamento/tecnicheBase"
 	util "algoritmi/algoritmi/algoritmi_implementati/struttureDati"
 	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/linkedList"
 	"algoritmi/algoritmi/algoritmi_implementati/struttureDati/orderedLinkedList"
@@ -20,11 +20,11 @@ func main() {
 	arrMerge := []int{16, 3, 45, 22, 252, 56, 5}
 	arrQuick := []int{123, 431, 84, 732, 22, 1, -3, 32}
 
-	baseOrder.Selection_sort(arrSelection)
-	baseOrder.Insertion_sort(arrInsertion)
-	baseOrder.Bubble_sort(arrBubble)
-	advancedOrder.Merge_sort(arrMerge)
-	advancedOrder.Quick_sort(arrQuick)
+	baseOrder.SelectionSort(arrSelection)
+	baseOrder.InsertionSort(arrInsertion)
+	baseOrder.BubbleSort(arrBubble)
+	advancedOrder.MergeSort(arrMerge)
+	advancedOrder.QuickSort(arrQuick)
 
 	fmt.Println("Array ordinato con Selectionsort")
 	for _, el := range arrSelection {

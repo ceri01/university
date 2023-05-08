@@ -7,7 +7,7 @@ package ricerca
 	Costo spazio = O(1) -> vengono create due variabili
 */
 
-func ricerca_iterativa_base(arr []int, toFind int) int {
+func baseSequentialSearch(arr []int, toFind int) int {
 	dim := len(arr) // dimensione array
 	i := 0          // indice
 

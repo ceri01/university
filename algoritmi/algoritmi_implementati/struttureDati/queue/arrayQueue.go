@@ -7,8 +7,12 @@ import (
 const DIM = 100
 
 type ArrayQueue struct {
-	begin int // Quando uno dei due indici "begin" o "end" arriveranno al valore massimo che possono assumere si verificherà un errore
-	end   int // ma è un caso remoto che non ci interessa in quanto questa implementazione ha uno scopo didattico.
+	/*
+		Quando uno dei due indici "begin" o "end" arriveranno al valore massimo che possono assumere si verificherà
+		un errore, ma è un caso remoto che non ci interessa in quanto questa implementazione ha uno scopo didattico.
+	*/
+	end   int
+	begin int
 	empty bool
 	full  bool
 	array [DIM]int
@@ -27,9 +31,11 @@ func (queue *ArrayQueue) IsEmpty() bool { // Costo tempo => costante O(1)
 	return queue.empty
 }
 
-func (queue *ArrayQueue) Enqueue(val int) bool { // Costo tempo => costante O(1)
-	// in questa variante viene ritornato un booleano per indicare se l'inserimento va a buon fine
-	// non influisce eccessivamente sul tempo di esecuzione, e neanche sullo spazio occupato.
+func (queue *ArrayQueue) Enqueue(val int) bool { //Costo tempo => costante O(1)
+	/*
+		in questa variante viene ritornato un booleano per indicare se l'inserimento va a buon fine non influisce
+		eccessivamente sul tempo di esecuzione, e neanche sullo spazio occupato.
+	*/
 	if queue.full != true {
 		queue.empty = false
 		queue.end++
@@ -43,9 +49,10 @@ func (queue *ArrayQueue) Enqueue(val int) bool { // Costo tempo => costante O(1)
 }
 
 func (queue *ArrayQueue) First() (int, bool) { // Costo tempo => costante O(1)
-	// anche in questa variante vengono ritornati un booleano e un intero
-	// il booleano indica se il valore restituito è da interpretare come dato oppure come
-	// valore che specifica il fallimento dell'operaizone
+	/*
+		Anche in questa variante vengono ritornati un booleano e un intero il booleano indica se il valore restituito è da
+		interpretare come dato oppure come valore che specifica il fallimento dell'operaizone
+	*/
 	if queue.IsEmpty() {
 		return -1, false
 	}

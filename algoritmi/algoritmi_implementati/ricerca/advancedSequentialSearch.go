@@ -8,7 +8,7 @@ package ricerca
 	Costo spazio = O(1) -> vengono create due variabili
 */
 
-func ricerca_iterativa(arr []int, toFind int) int {
+func advancedSequentialSearch(arr []int, toFind int) int {
 	i := len(arr) - 1 // indice ultimo elemento array
 
 	// itera fino a che non l'indice è maggiore o uguale a 0 e l'elemento in posizione i
