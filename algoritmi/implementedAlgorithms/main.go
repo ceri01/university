@@ -472,4 +472,16 @@ func main() {
 	fmt.Println("cancel 8")
 	tree.Remove(st, 8)
 	tree.SummaryView(st, 0)
+
+	// Test AVL-Tree
+	fmt.Println("\n\n##### Test AVL-Tree #####")
+	avl := tree.CreateAVLTree(30)
+	tree.Insert(avl, 50)
+	tree.Insert(avl, 10)
+	tree.SummaryViewAVL(avl, 0)
+	tree.Insert(avl, 15)
+	tree.Insert(avl, 6)
+	tree.SummaryViewAVL(avl, 0)
+	tree.Insert(avl, 20)
+	tree.SummaryViewAVL(avl, 0)
 }

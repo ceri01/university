@@ -1,5 +1,12 @@
 package dataStructures
 
+func MaxInt(a, b int) int {
+	if a >= b {
+		return a
+	}
+	return b
+}
+
 type ListNode struct {
 	Key  int // In questo caso Key è la chiave, ma possiamo aggiungere altri campi
 	Next *ListNode
@@ -50,4 +57,11 @@ type BiSearchTree struct { // Messo qui per evitare problema degli import ciclic
 	Val   int
 	Left  *BiSearchTree
 	Right *BiSearchTree
+}
+
+type AVLTree struct { // Messo qui per evitare problema degli import ciclici
+	Val    int
+	Left   *AVLTree
+	Right  *AVLTree
+	Height int
 }
