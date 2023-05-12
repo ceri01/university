@@ -484,4 +484,12 @@ func main() {
 	tree.SummaryViewAVL(avl, 0)
 	tree.Insert(avl, 20)
 	tree.SummaryViewAVL(avl, 0)
+
+	// Test Heap
+	fmt.Println("\n\n##### Test Heap and heapsort #####")
+	heap := []int{6, 1, 2, 10, 4, 19, 26, 11, 8, 5}
+	tree.HeapSort(heap)
+	for i := 0; i < len(heap); i++ {
+		fmt.Printf("%d ", heap[i])
+	}
 }
