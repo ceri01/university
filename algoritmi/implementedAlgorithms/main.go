@@ -7,8 +7,10 @@ import (
 	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/queue"
 	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/stack"
 	tree "algoritmi/algoritmi/implementedAlgorithms/dataStructures/tree"
+	_func "algoritmi/algoritmi/implementedAlgorithms/func"
 	advancedOrder "algoritmi/algoritmi/implementedAlgorithms/sort/advanced"
 	baseOrder "algoritmi/algoritmi/implementedAlgorithms/sort/base"
+	"algoritmi/algoritmi/implementedAlgorithms/sort/withoutComparison"
 	"fmt"
 )
 
@@ -500,4 +502,12 @@ func main() {
 		fmt.Printf("%d ", heap[i])
 	}
 	fmt.Println()
+
+	// Test IntegerSort
+	fmt.Println("\n\n##### Test IntegerSort #####")
+	data := []int{9, 10, 5, 1, 6, 8, 0, 4, 0}
+	// 11 è il valore dell'elemento più grande aumentato di uno (quindi gl elementi vanno da zero a undici)
+	withoutComparison.IntegerSort(data, data[_func.RicercaMax(data)]+1)
+	fmt.Println(data)
+
 }
