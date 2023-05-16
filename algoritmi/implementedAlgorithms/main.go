@@ -487,9 +487,17 @@ func main() {
 
 	// Test Heap
 	fmt.Println("\n\n##### Test Heap and heapsort #####")
-	heap := []int{6, 1, 2, 10, 4, 19, 26, 11, 8, 5}
+	heap := []int{4, 5, 6, 7, 8, 9, 10}
 	tree.HeapSort(heap)
 	for i := 0; i < len(heap); i++ {
 		fmt.Printf("%d ", heap[i])
 	}
+	fmt.Println()
+
+	heap = []int{43, 123, 994, 5, 5, 5, 5, 123, 6, 22, 5, 5, 22, 5}
+	tree.HeapSort(heap)
+	for i := 0; i < len(heap); i++ {
+		fmt.Printf("%d ", heap[i])
+	}
+	fmt.Println()
 }
