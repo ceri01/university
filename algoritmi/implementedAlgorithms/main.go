@@ -527,4 +527,21 @@ func main() {
 	for i := 0; i < limit; i++ {
 		fmt.Printf("%d => %s\n", bucketData[i].Key, bucketData[i].Data)
 	}
+
+	// Test RadixData !!! NON FUNZIONA !!!
+	fmt.Println("\n\n##### Test RadixData #####")
+	radixData := []*sort.Record{
+		{Key: 45, Data: "Cane"},
+		{Key: 23, Data: "Gatto"},
+		{Key: 123, Data: "Mucca"},
+		{Key: 44, Data: "Gallina"},
+		{Key: 5, Data: "Toro"},
+		{Key: 11, Data: "Zanzara"},
+		{Key: 5, Data: "Mulo"},
+	}
+	withoutComparison.RadixSort(radixData)
+	limit = len(radixData)
+	for i := 0; i < limit; i++ {
+		fmt.Printf("%d => %s\n", radixData[i].Key, radixData[i].Data)
+	}
 }
