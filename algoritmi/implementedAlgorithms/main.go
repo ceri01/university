@@ -8,6 +8,7 @@ import (
 	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/stack"
 	tree "algoritmi/algoritmi/implementedAlgorithms/dataStructures/tree"
 	_func "algoritmi/algoritmi/implementedAlgorithms/func"
+	"algoritmi/algoritmi/implementedAlgorithms/sort"
 	advancedOrder "algoritmi/algoritmi/implementedAlgorithms/sort/advanced"
 	baseOrder "algoritmi/algoritmi/implementedAlgorithms/sort/base"
 	"algoritmi/algoritmi/implementedAlgorithms/sort/withoutComparison"
@@ -505,9 +506,25 @@ func main() {
 
 	// Test IntegerSort
 	fmt.Println("\n\n##### Test IntegerSort #####")
-	data := []int{9, 10, 5, 1, 6, 8, 0, 4, 0}
+	insertionData := []int{9, 10, 5, 1, 6, 8, 0, 4, 0}
 	// 11 è il valore dell'elemento più grande aumentato di uno (quindi gl elementi vanno da zero a undici)
-	withoutComparison.IntegerSort(data, data[_func.RicercaMax(data)]+1)
-	fmt.Println(data)
+	withoutComparison.IntegerSort(insertionData, insertionData[_func.RicercaMax(insertionData)]+1)
+	fmt.Println(insertionData)
 
+	// Test BucketSort
+	fmt.Println("\n\n##### Test BucketSort #####")
+	bucketData := []*sort.Record{
+		{Key: 2, Data: "Cane"},
+		{Key: 1, Data: "Gatto"},
+		{Key: 5, Data: "Mucca"},
+		{Key: 2, Data: "Gallina"},
+		{Key: 7, Data: "Toro"},
+		{Key: 5, Data: "Zanzara"},
+		{Key: 0, Data: "Mulo"},
+	}
+	withoutComparison.BucketSort(bucketData, 7)
+	limit := len(bucketData)
+	for i := 0; i < limit; i++ {
+		fmt.Printf("%d => %s\n", bucketData[i].Key, bucketData[i].Data)
+	}
 }
