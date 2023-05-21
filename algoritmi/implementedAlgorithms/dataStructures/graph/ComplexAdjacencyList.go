@@ -33,7 +33,7 @@ type Vertex struct {
 	i suoi adiacenti.
 */
 
-type Graph struct {
+type ComplexGraph struct {
 	nodes int
 	vert  map[string]*Vertex
 	Adj   map[Vertex][]*Vertex
@@ -43,8 +43,8 @@ type Graph struct {
 	Genera un grafo contenente 'verts' nodi vuoti
 */
 
-func NewGraph(verts int) *Graph {
-	graph := new(Graph)
+func NewComplexGraph(verts int) *ComplexGraph {
+	graph := new(ComplexGraph)
 	graph.vert = make(map[string]*Vertex, verts)
 	graph.Adj = make(map[Vertex][]*Vertex, 1)
 	graph.nodes = verts
@@ -68,7 +68,7 @@ func NewGraph(verts int) *Graph {
 	consumo di spazio diverso (più le stringhe sono grandi maggiore è lo spazio occupato)
 */
 
-func fillGraph(graph *Graph, node string, data [3]string, adjacent string) int {
+func fillComplexGraph(graph *ComplexGraph, node string, data [3]string, adjacent string) int {
 	currVerst := len(graph.vert) // numero corrente di nodi presenti nel grafo
 	insertedNode := 0            // nodi inseriti in questa chiamata
 	if node == adjacent {        // controllo per far si che un nodo non possa essere vicino di se stesso
@@ -112,7 +112,7 @@ func fillGraph(graph *Graph, node string, data [3]string, adjacent string) int {
 	i dati del nodo non sono necessari, quindo possono essere omessi, e di default il loro valore sarà una stringa vuota
 */
 
-func ReadGraph(graph *Graph) {
+func ReadComplexGraph(graph *ComplexGraph) {
 	fmt.Println("Inserisci i nodi del grafo con i suoi nodi adiacenti nel seguente formato (per interrompere inserire -1): ")
 	fmt.Println("nome dato1 dato2 dato3:adiacente")
 
@@ -133,7 +133,7 @@ func ReadGraph(graph *Graph) {
 		if len(node) == 4 {
 			nodeData = [3]string{node[1], node[2], node[3]}
 		}
-		i = i + fillGraph(graph, nodeKey, nodeData, adjacent)
+		i = i + fillComplexGraph(graph, nodeKey, nodeData, adjacent)
 	}
 }
 
@@ -145,7 +145,7 @@ func ReadGraph(graph *Graph) {
 	...
 */
 
-func PrintGraph(graph *Graph) {
+func PrintComplexGraph(graph *ComplexGraph) {
 	for vertexKey, vertex := range graph.vert {
 		fmt.Printf("%s => ", vertexKey)
 		for _, adj := range graph.Adj[*vertex] {

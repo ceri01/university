@@ -546,9 +546,16 @@ func main() {
 			fmt.Printf("%d => %s\n", radixData[i].Key, radixData[i].Data)
 		}*/
 
-	// Test Graphs
-	fmt.Println("\n\n##### Test graphs #####")
-	g := graph.NewGraph(5)
-	graph.ReadGraph(g)
-	graph.PrintGraph(g)
+	// Test CompolexAdjacencyGraphs
+	fmt.Println("\n\n##### Test complex adjacency graphs #####")
+	fmt.Println("Uncomment to test it (works)")
+	/*	cag := graph.NewComplexGraph(5)
+		graph.ReadComplexGraph(cag)
+		graph.PrintComplexGraph(cag)*/
+
+	// Test AdjacencyListGraphs
+	fmt.Println("\n\n##### Test Adjacency List Graphs #####")
+	alg := graph.NewAdjListGraph(5)
+	graph.ReadAdjListGraph(alg)
+	graph.PrintAdjListGraph(alg)
 }
