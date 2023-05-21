@@ -2,6 +2,7 @@ package main
 
 import (
 	util "algoritmi/algoritmi/implementedAlgorithms/dataStructures"
+	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/graph"
 	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/linkedList"
 	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/orderedLinkedList"
 	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/queue"
@@ -546,8 +547,8 @@ func main() {
 		}*/
 
 	// Test Graphs
-	/*	fmt.Println("\n\n##### Test graphs #####")
-		g := graph.NewGraph(3)
-		graph.FillGraph(g)
-		graph.PrintGraph(*g)*/
+	fmt.Println("\n\n##### Test graphs #####")
+	g := graph.NewGraph(5)
+	graph.ReadGraph(g)
+	graph.PrintGraph(g)
 }
