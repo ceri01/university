@@ -8,6 +8,16 @@ import (
 )
 
 /*
+	Questo tipo d'implementazione cosi articolata è necessario dal momento in cui si ha a che fare con dei dati piuttosto
+	complessi come il tipo vertex qui sotto, che comprende una chiave (stringa) e una serie di stringhe come dati. Tutte le altre
+	implementazioni riguarderanno casi più semplici, ovvero grafi su interi, si sappia però che in base al tipo di dati da
+	rappresentare l'implementazione può variare.
+	Un esempio che può essere una via di mezzo tra questa implementazione e le altre è quello in cui si deve rappresentare
+	i dati come semplici stringhe, in quel caso basterà creare un'implementazione in cui si sfrutterà una mappa dove la
+	chiave è una stringa e il valore associato è una slice di stringhe che rappresenta la lista di adiacenza.
+*/
+
+/*
 	Struct che rappresenta un vertice del grafo formato da una chiave (stringa) e da una slice di stringhe che rappresentano
 	i dati associati al nodo.
 */
@@ -19,7 +29,7 @@ type Vertex struct {
 
 /*
 	Struct che rappresenta un grafo formato da una mappa che associa una stringa ad un vertice (per identificare i nodi del grafo).
-	Inoltre è presente una mappa che associa ad ogni vertice una slice di riferimenti a vertici che rappresenta gli archi tra un nodo e
+	Inoltre è presente una mappa che associa a ogni vertice una slice di riferimenti a vertici che rappresenta gli archi tra un nodo e
 	i suoi adiacenti.
 */
 
@@ -43,7 +53,7 @@ func NewGraph(verts int) *Graph {
 
 /*
 	Popola il grafico con i nodi rappresentati dalla chiave 'node' e se presenti setta i dati dei nodi, inoltre riempie la
-	lista di adiacenza tramite il parametro adjacents.
+	lista di adiacenza tramite il parametro adjacent.
 	Restituisce il numero di nodi che sono stati inseriti
 
 	Considerando che in questa funzione non si itera su alcuna lista o mappa si potrebbe dire che la complessità di questa funzione
@@ -54,7 +64,7 @@ func NewGraph(verts int) *Graph {
 	Caso migliore: O(1)
 	Caso peggiore O(n)
 
-	Per quanto riguarda lo spazio anche qui dipende dall'input, in base alla lunghezza delle striunghe in input avremo un
+	Per quanto riguarda lo spazio anche qui dipende dall'input, in base alla lunghezza delle stringe in input avremo un
 	consumo di spazio diverso (più le stringhe sono grandi maggiore è lo spazio occupato)
 */
 
@@ -65,7 +75,7 @@ func fillGraph(graph *Graph, node string, data [3]string, adjacent string) int {
 		return 0
 	}
 	if currVerst < graph.nodes { // se il numero di nodi presenti nel grafo è minore del numero massimo procedi
-		if graph.vert[node] == nil { // se il nodo non esiste crealo e mettolo nel grafo
+		if graph.vert[node] == nil { // se il nodo non esiste crealo e metterlo nel grafo
 			graph.vert[node] = new(Vertex)
 			graph.vert[node].Key = node
 			insertedNode++ // incremento numero di nodi aggiunti in questa chiamata
@@ -129,9 +139,9 @@ func ReadGraph(graph *Graph) {
 
 /*
 	Permette di stampare il grafo nel formato
-	nodo1 => vicino1-1, vincino1-2 ...
-	nodo2 => vicino2-1, vincino2-2 ...
-	nodo3 => vicino3-1, vincino3-2 ...
+	nodo1 => vicino1-1, vicino1-2 ...
+	nodo2 => vicino2-1, vicino2-2 ...
+	nodo3 => vicino3-1, vicino3-2 ...
 	...
 */
 
