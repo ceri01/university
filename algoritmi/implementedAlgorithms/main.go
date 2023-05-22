@@ -562,7 +562,13 @@ func main() {
 
 	// Test AdjacencyListGraphs
 	fmt.Println("\n\n##### Test Adjacency List Graphs #####")
-	alg := graph.NewAdjListGraph(5)
-	graph.ReadAdjListGraph(alg)
-	graph.PrintAdjListGraph(alg)
+	/*	alg := graph.NewAdjListGraph(5)
+		graph.ReadAdjListGraph(alg)
+		graph.PrintAdjListGraph(alg)*/
+
+	// Test AdjacencyListGraphs
+	fmt.Println("\n\n##### Test Adjacency List Graphs #####")
+	amg := graph.NewAdjMatrixGraph(5)
+	graph.ReadAdjMatrixGraph(amg)
+	graph.PrintAdjMatrixGraph(amg)
 }

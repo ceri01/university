@@ -44,7 +44,14 @@ func fillAdjMatrixGraph(graph *AdjMatrixGraph, node int, adjacent int) int {
 		return 0
 	}
 
-	graph.adjMatrix[node][adjacent] = 1
+	for i := len(graph.adjMatrix[node]); i < adjacent; i++ {
+		graph.adjMatrix[node] = append(graph.adjMatrix[node], 0)
+	}
+	if len(graph.adjMatrix[node]) > adjacent {
+		graph.adjMatrix[node][adjacent] = 1
+	} else {
+		graph.adjMatrix[node] = append(graph.adjMatrix[node], 1)
+	}
 	return 1
 }
 
@@ -83,8 +90,8 @@ func ReadAdjMatrixGraph(graph *AdjMatrixGraph) {
 func PrintAdjMatrixGraph(graph *AdjMatrixGraph) {
 	for node, adj := range graph.adjMatrix {
 		fmt.Printf("%d => ", node)
-		for val, _ := range adj {
-			if val != 0 {
+		for val, isPresent := range adj {
+			if isPresent != 0 {
 				fmt.Printf("%d ", val)
 			}
 		}
