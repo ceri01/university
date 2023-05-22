@@ -38,19 +38,18 @@ func NewAdjListGraph(verts int) *AdjListGraph {
 	graph.data = make([]*linkedList.DoubleLinkedList, verts)
 	graph.verts = verts
 	graph.vertOccupated = 0
-	fmt.Println(graph)
 	return graph
 }
 
 /*
-	Permette di riempire il grafo con i dati passati
+	Permette di riempire il grafo con i dati passati, ritorna il numero di nodi adiacenti inseriti
 */
 
 func fillAdjListGraph(graph *AdjListGraph, node int, adjacent int) int {
 	insertedNode := 0     // nodi inseriti in questa chiamata
 	if node == adjacent { // controllo per far si che un nodo non possa essere vicino di se stesso
 		return 0
-	} else if node >= graph.verts || adjacent >= graph.verts {
+	} else if node >= graph.verts || adjacent >= graph.verts || node < 0 || adjacent < 0 {
 		fmt.Println("Errore di inserimento, i nodi devono avere un valore minore di ", graph.verts)
 		return 0
 	}
