@@ -7,6 +7,10 @@ import (
 /*
 	Struct che rappresenta un grafo formato da una mappa che associa un intero a una lista d'interi, in questo modo per ogni
 	elemento del grafo corrisponderà una list (di adiacenza) contenente tutti i nodi collegati all'intero in questione.
+	La lista di adiacenza ha un costo di θ(n+m) in quanto il numero di liste di nodi adiacenti (m) dipende dal numero di nodi
+	presenti nel grafo (n).
+	In questo caso il numero di slice d'interi dipendono dal numero di elementi presenti nella mappa.
+	Un problema della lista di adiacenza è il fatto che risulta costoso calcolare gli archi entranti in un nodo (per grafi orientati).
 */
 
 type AdjListGraph struct {
