@@ -15,6 +15,7 @@ import (
 	Un esempio che può essere una via di mezzo tra questa implementazione e le altre è quello in cui si deve rappresentare
 	i dati come semplici stringhe, in quel caso basterà creare un'implementazione in cui si sfrutterà una mappa dove la
 	chiave è una stringa e il valore associato è una slice di stringhe che rappresenta la lista di adiacenza.
+	I grafi che si creano grazie a questa implementazione sono grafi orientati.
 */
 
 /*

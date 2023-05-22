@@ -1,21 +1,32 @@
 package graph
 
 import (
+	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/linkedList"
 	"fmt"
 )
 
 /*
-	Struct che rappresenta un grafo formato da una mappa che associa un intero a una lista d'interi, in questo modo per ogni
-	elemento del grafo corrisponderà una list (di adiacenza) contenente tutti i nodi collegati all'intero in questione.
-	La lista di adiacenza ha un costo di θ(n+m) in quanto il numero di liste di nodi adiacenti (m) dipende dal numero di nodi
-	presenti nel grafo (n).
-	In questo caso il numero di slice d'interi dipendono dal numero di elementi presenti nella mappa.
+	Questa implementazione è realizzata tramite una lista (in go è possibile anche usare delle slice in modo semplice).
+	Per avere tutti i tipi di grafo questa implementazione rappresenta dei grafi NON ORIENTATI.
+	Inoltre in questo caso le chiavi dei nodi devono andare da zero a n dove n è il numero massimo di nodi che il grafo può
+	contenere, questo perchè è un limite dell'implementazione, bisognerebbe passare a un'implementazione più complessa oppure
+	utilizzare una mappa.
+	Struct che rappresenta un grafo formato da una lista che associa un intero (la posizione) a una lista d'interi, in questo modo per ogni
+	elemento del grafo corrisponderà una lista (di adiacenza) contenente tutti i nodi collegati all'intero in questione.
+	Inoltre sono presenti due interi che indicano rispettivamente il numero di nodi che il grafo possiede e il numero di nodi
+	già popolati.
+	La lista di adiacenza ha un costo in termini di spazio di θ(n+m) in quanto il numero di liste di nodi adiacenti (m)
+	dipende dal numero di nodi presenti nel grafo (n).
+	In questo caso il numero di liste d'interi dipende dalla lunghezza della slice.
 	Un problema della lista di adiacenza è il fatto che risulta costoso calcolare gli archi entranti in un nodo (per grafi orientati).
 */
 
 type AdjListGraph struct {
 	verts int
-	data  map[int][]int
+	// Ogni posizione i rappresenta un nodo (intero) e ogni lista associata a una posizione contiene l'insieme dei nodi
+	// collegati a esso tramite un arco uscente i (se grafo orientato)
+	data          []*linkedList.DoubleLinkedList
+	vertOccupated int // Permette di tenere traccia di quanti vertici sono stati popolati
 }
 
 /*
@@ -24,8 +35,9 @@ type AdjListGraph struct {
 
 func NewAdjListGraph(verts int) *AdjListGraph {
 	graph := new(AdjListGraph)
-	graph.data = make(map[int][]int, verts)
+	graph.data = make([]*linkedList.DoubleLinkedList, verts)
 	graph.verts = verts
+	graph.vertOccupated = 0
 	fmt.Println(graph)
 	return graph
 }
@@ -35,27 +47,31 @@ func NewAdjListGraph(verts int) *AdjListGraph {
 */
 
 func fillAdjListGraph(graph *AdjListGraph, node int, adjacent int) int {
-	currVerst := len(graph.data) // numero corrente di nodi presenti nel grafo
-	insertedNode := 0            // nodi inseriti in questa chiamata
-	if node == adjacent {        // controllo per far si che un nodo non possa essere vicino di se stesso
+	insertedNode := 0     // nodi inseriti in questa chiamata
+	if node == adjacent { // controllo per far si che un nodo non possa essere vicino di se stesso
+		return 0
+	} else if node >= graph.verts || adjacent >= graph.verts {
+		fmt.Println("Errore di inserimento, i nodi devono avere un valore minore di ", graph.verts)
 		return 0
 	}
-	if currVerst < graph.verts { // se il numero di nodi presenti nel grafo è minore del numero massimo procedi
+	if graph.vertOccupated < graph.verts { // se il numero di nodi presenti nel grafo è minore del numero massimo procedi
 		if graph.data[node] == nil { // se il nodo non esiste crealo e metterlo nel grafo
-			graph.data[node] = make([]int, 0)
+			graph.data[node] = new(linkedList.DoubleLinkedList)
 			insertedNode++ // incremento numero di nodi aggiunti in questa chiamata
 		}
 		if graph.data[adjacent] == nil { // se il nodo vicino di 'node' non è presente nel grafo aggiungilo
-			graph.data[adjacent] = make([]int, 0)
+			graph.data[adjacent] = new(linkedList.DoubleLinkedList)
 			insertedNode++ // incremento numero di nodi aggiunti in questa chiamata
 		}
 		// aggiungi il nodo 'adjacent' alla lista di adiacenza di 'node'
-		graph.data[node] = append(graph.data[node], adjacent)
+		graph.data[node].InsertTail(adjacent)
+		graph.data[adjacent].InsertTail(node)
 	} else { // altrimenti
 		if graph.data[node] != nil && graph.data[adjacent] != nil { // verifica che il nodo 'node' e 'adjacent' esistano già
 			// se si aggiungi 'adjacent' alla lista di adiacenza di 'node', in questo caso verranno connessi solo nodi già
 			// presenti nel grafo, e non verranno aggiunti nodi nuovi
-			graph.data[node] = append(graph.data[node], adjacent)
+			graph.data[node].InsertTail(adjacent)
+			graph.data[adjacent].InsertTail(node)
 		} else { // altrimenti se si cerca di aggiungere un nuovo nodo verrà specificato che il limite è stato raggiunto
 			fmt.Println("Numero massimo di nodi raggiunto")
 			insertedNode++
@@ -97,11 +113,15 @@ func ReadAdjListGraph(graph *AdjListGraph) {
 */
 
 func PrintAdjListGraph(graph *AdjListGraph) {
-	for node := range graph.data {
-		fmt.Printf("%d => ", node)
-		for _, adj := range graph.data[node] {
-			fmt.Printf("%d ", adj)
+	for key, node := range graph.data {
+		if node != nil {
+			fmt.Printf("%d => ", key)
+			_, val := node.SearchByPosition(0)
+			for val != nil {
+				fmt.Printf("%d ", val.Key)
+				val = val.Next
+			}
+			fmt.Println()
 		}
-		fmt.Println()
 	}
 }

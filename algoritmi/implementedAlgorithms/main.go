@@ -553,6 +553,13 @@ func main() {
 		graph.ReadComplexGraph(cag)
 		graph.PrintComplexGraph(cag)*/
 
+	// Test MapAdjacencyListGraphs
+	fmt.Println("\n\n##### Test Map Adjacency List Graphs #####")
+	fmt.Println("Uncomment to test it (works)")
+	/*	malg := graph.NewMapAdjListGraph(5)
+		graph.ReadMapAdjListGraph(malg)
+		graph.PrintMapAdjListGraph(malg)*/
+
 	// Test AdjacencyListGraphs
 	fmt.Println("\n\n##### Test Adjacency List Graphs #####")
 	alg := graph.NewAdjListGraph(5)
