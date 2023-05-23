@@ -562,13 +562,21 @@ func main() {
 
 	// Test AdjacencyListGraphs
 	fmt.Println("\n\n##### Test Adjacency List Graphs #####")
+	fmt.Println("Uncomment to test it (works)")
 	/*	alg := graph.NewAdjListGraph(5)
 		graph.ReadAdjListGraph(alg)
 		graph.PrintAdjListGraph(alg)*/
 
-	// Test AdjacencyListGraphs
-	fmt.Println("\n\n##### Test Adjacency List Graphs #####")
-	amg := graph.NewAdjMatrixGraph(5)
-	graph.ReadAdjMatrixGraph(amg)
-	graph.PrintAdjMatrixGraph(amg)
+	// Test adjacencyMatrix
+	fmt.Println("\n\n##### Test Adjacency matrix Graphs #####")
+	fmt.Println("Uncomment to test it (works)")
+	/*	amg := graph.NewAdjMatrixGraph(5)
+		graph.ReadAdjMatrixGraph(amg)
+		graph.PrintAdjMatrixGraph(amg)*/
+
+	// Test adjacencyMatrixNotOriented
+	fmt.Println("\n\n##### Test Adjacency List Graphs not oriented #####")
+	amgno := graph.NewAdjMatrixGraphNotOriented(5)
+	graph.ReadAdjMatrixGraphNotOriented(amgno)
+	graph.PrintAdjMatrixGraphNotOriented(amgno)
 }

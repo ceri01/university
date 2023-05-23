@@ -70,7 +70,7 @@ func ReadAdjMatrixGraph(graph *AdjMatrixGraph) {
 
 	var node, adjacent int
 
-	for i := 0; i <= graph.verts*graph.verts; {
+	for i := 0; i <= graph.verts; {
 		_, err := fmt.Scanf("%d:%d", &node, &adjacent)
 		if err != nil {
 			break
