@@ -562,14 +562,20 @@ func main() {
 
 	// Test AdjacencyListGraphs
 	fmt.Println("\n\n##### Test Adjacency List Graphs #####")
-	fmt.Println("Uncomment to test it (works)")
-	alg := graph.NewAdjListGraph(10)
-	graph.ReadAdjListGraph(alg)
-	graph.PrintAdjListGraph(alg)
-	resTree := graph.DFS(alg, 0)
-	resTree = graph.BFS(alg, 0)
-	tree.SummaryView(resTree, 0)
-
+	fmt.Println("Uncomment to test functions until BFS (works)")
+	/*	alg := graph.NewAdjListGraph(10)
+		graph.ReadAdjListGraph(alg)
+		graph.PrintAdjListGraph(alg)
+		resTree := graph.DFS(alg, 0)
+		resTree = graph.BFS(alg, 0)
+		tree.SummaryView(resTree, 0)
+	*/
+	alg1 := graph.NewAdjListGraph(5)
+	graph.Gen(alg1, 0.2)
+	graph.PrintAdjListGraph(alg1)
+	fmt.Println("deg of 0: ", graph.Degree(alg1, 0))
+	fmt.Println("deg of 6: ", graph.Degree(alg1, 6))
+	fmt.Println("path from 0 to 3: ", graph.Path(alg1, 0, 3))
 	// Test adjacencyMatrix
 	fmt.Println("\n\n##### Test Adjacency matrix Graphs #####")
 	fmt.Println("Uncomment to test it (works)")
