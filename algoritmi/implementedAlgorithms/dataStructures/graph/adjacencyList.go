@@ -247,6 +247,33 @@ func Gen(graph *AdjListGraph, p float64) {
 	}
 }
 
+// RISCRITTURA DELLA DFS DA USARE INTERNAMENTE SENZA ALBERO E SENZA PRINT
+
+func dfsToFindPath(graph *AdjListGraph, startNode int, endNode int) bool {
+	visited := make(map[int]bool, 1)
+	visited[startNode] = true
+	return dfsRecInternal(graph, startNode, endNode, visited)
+}
+
+/*
+	Procedura ricorsiva usata per fare la visita in profondità
+*/
+
+func dfsRecInternal(graph *AdjListGraph, startNode int, endNode int, visited map[int]bool) bool {
+	visited[startNode] = true
+	_, el := graph.data[startNode].SearchByPosition(0)
+	for el != nil {
+		if visited[el.Key] != true {
+			dfsRecInternal(graph, el.Key, endNode, visited)
+			if visited[endNode] {
+				return true
+			}
+		}
+		el = el.Next
+	}
+	return false
+}
+
 /*
 	Ritorna il grado di un nodo del grafo passato, se node non è presente nel grado ritorna -1
 */
@@ -256,4 +283,12 @@ func Degree(graph *AdjListGraph, node int) int {
 		return graph.data[node].Size()
 	}
 	return -1
+}
+
+/*
+	Verifica che esista il cammino da v a u sfruttando la visita in profondità (che passa al massimo una volta per ogni nodo)
+*/
+
+func Path(graph *AdjListGraph, startNode int, endNode int) bool {
+	return dfsToFindPath(graph, startNode, endNode)
 }
