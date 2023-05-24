@@ -279,7 +279,7 @@ func dfsRecInternal(graph *AdjListGraph, startNode int, endNode int, visited map
 */
 
 func Degree(graph *AdjListGraph, node int) int {
-	if node < graph.verts && node >= 0 {
+	if node < graph.verts && node >= 0 && graph.data[node] != nil {
 		return graph.data[node].Size()
 	}
 	return -1
