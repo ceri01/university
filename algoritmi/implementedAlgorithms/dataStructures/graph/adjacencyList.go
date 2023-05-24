@@ -6,6 +6,7 @@ import (
 	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/queue"
 	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/tree"
 	"fmt"
+	"math/rand"
 )
 
 /*
@@ -221,4 +222,27 @@ func BFS(graph *AdjListGraph, node int) *util.BiSearchTree {
 	}
 	fmt.Println()
 	return t
+}
+
+/*
+	Popola il grafo aggiungendo gli archi data una probabilità p tale che 0 <= p <= 1 (inclusi).
+	Se p > 1 viene considerata come p = 1, al contrario se p < 0 viene considerata come p = 0
+*/
+
+func Gen(graph *AdjListGraph, p float64) {
+	if p > 1 {
+		p = 1
+	} else if p < 0 {
+		p = 0
+	}
+	for i := 0; i < graph.verts; i++ {
+		for j := 1; j < graph.verts; j++ {
+			if i != j {
+				randFloat := rand.Float64()
+				if randFloat >= p {
+					fillAdjListGraph(graph, i, j)
+				}
+			}
+		}
+	}
 }
