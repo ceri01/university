@@ -246,3 +246,14 @@ func Gen(graph *AdjListGraph, p float64) {
 		}
 	}
 }
+
+/*
+	Ritorna il grado di un nodo del grafo passato, se node non è presente nel grado ritorna -1
+*/
+
+func Degree(graph *AdjListGraph, node int) int {
+	if node < graph.verts && node >= 0 {
+		return graph.data[node].Size()
+	}
+	return -1
+}
