@@ -3,6 +3,7 @@ package graph
 import (
 	util "algoritmi/algoritmi/implementedAlgorithms/dataStructures"
 	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/linkedList"
+	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/queue"
 	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/tree"
 	"fmt"
 )
@@ -139,12 +140,28 @@ func PrintAdjListGraph(graph *AdjListGraph) {
 }
 
 /*
-	Permette di eseguire una vista in profondità del grafo, restituisce un albero ricoprente del grafo costruito selezionando
-	gli archi secondo l'ordine della visita.
+	IMPORTANTE!!
+	Le implementazioni di BFS e DFS viste a teoria differiscono da quelle viste in laboratorio, questo perchè in teoria
+	viene restituito un albero, mentre nel laboratorio vengono semplicemente stampati i nodi attraversati.
+	In questa impolementazione ho restituito comunque un albero ma avendo a disposizione solo alberi binari di ricerca
+	(non adatti in questo caso perchè ci si riduce ad avere degli alberi che sono quasi come delle liste) non si ha un albero
+	adatto a rappresentare l'albero ricoprente di un grafo.
+
+	Essendo che queste implementazioni sono a scopo didattico si può sorvolare su questo dettaglio, basti sapere che
+	si dovrebbe utilizzare un'implementazione differente dell'albero.
+*/
+
+/*
+	Permette di eseguire una vista in profondità del grafo (non orientato e connesso), restituisce un albero
+	ricoprente del grafo costruito selezionando gli archi secondo l'ordine della visita.
+	Se il grafo non è connesso oppure è orientato non è garantito il funzionamento.
+
+	Il costo in termini di tempo della visita in profondità è analogo a quello della vista in ampiezza, quindi θ(n + m)
+	ogni nodo incontrato ha dei vicini.
 */
 
 func DFS(graph *AdjListGraph, node int) *util.BiSearchTree {
-	t := tree.CreateBinarySearchTree(1)
+	t := tree.CreateBinarySearchTree(node)
 	visited := make(map[int]bool, 1)
 	visited[node] = true
 	fmt.Printf("%d ", node)
@@ -168,4 +185,40 @@ func dfsRec(graph *AdjListGraph, node int, searchTree *util.BiSearchTree, visite
 		}
 		el = el.Next
 	}
+}
+
+/*
+	Permette di eseguire la visita in ampiezza del grafo, viene restituito un albero ricoprente del grafo costruito secondo
+	la visita del grafo. Se il grafo passato non è connesso oppure è orientato non è garantita la correttezza di questa
+	funzione.
+
+	Per quanto riguarda i costi della vista in ampiezza abbiamo che ogni nodo viene messo nella coda, quindi il ciclo
+	esterno viene fatto n volte, e per ogni nodo nella coda si esegue il ciclo interno tante volte quanti sono i vicini del
+	nodo preso in considerazione. Quindi alla fine ogni arco verrà considerato 2m volte (se si sommano tutti i vicini di ogni
+	nodo avremo come risultato 2m). Di conseguenza avremo che il costo in tempo di questa funzione è θ(n + 2m), e quindi l'andamento
+	è uguale a θ(n + m).
+*/
+
+func BFS(graph *AdjListGraph, node int) *util.BiSearchTree {
+	qu := queue.CreateListQueue()
+	t := tree.CreateBinarySearchTree(node)
+	fmt.Printf("%d ", node)
+	visited := make(map[int]bool, 1)
+	visited[node] = true
+	qu.Enqueue(node)
+	for !qu.IsEmpty() {
+		val, _ := qu.Dequeue()
+		_, el := graph.data[val].SearchByPosition(0)
+		for el != nil {
+			if !visited[el.Key] {
+				fmt.Printf("%d ", el.Key)
+				tree.InsertIterative(t, el.Key)
+				visited[el.Key] = true
+				qu.Enqueue(el.Key)
+			}
+			el = el.Next
+		}
+	}
+	fmt.Println()
+	return t
 }

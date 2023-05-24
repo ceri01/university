@@ -563,9 +563,12 @@ func main() {
 	// Test AdjacencyListGraphs
 	fmt.Println("\n\n##### Test Adjacency List Graphs #####")
 	fmt.Println("Uncomment to test it (works)")
-	/*	alg := graph.NewAdjListGraph(5)
-		graph.ReadAdjListGraph(alg)
-		graph.PrintAdjListGraph(alg)*/
+	alg := graph.NewAdjListGraph(10)
+	graph.ReadAdjListGraph(alg)
+	graph.PrintAdjListGraph(alg)
+	resTree := graph.DFS(alg, 0)
+	resTree = graph.BFS(alg, 0)
+	tree.SummaryView(resTree, 0)
 
 	// Test adjacencyMatrix
 	fmt.Println("\n\n##### Test Adjacency matrix Graphs #####")
@@ -576,7 +579,7 @@ func main() {
 
 	// Test adjacencyMatrixNotOriented
 	fmt.Println("\n\n##### Test Adjacency List Graphs not oriented #####")
-	amgno := graph.NewAdjMatrixGraphNotOriented(5)
-	graph.ReadAdjMatrixGraphNotOriented(amgno)
-	graph.PrintAdjMatrixGraphNotOriented(amgno)
+	/*	amgno := graph.NewAdjMatrixGraphNotOriented(5)
+		graph.ReadAdjMatrixGraphNotOriented(amgno)
+		graph.PrintAdjMatrixGraphNotOriented(amgno)*/
 }
