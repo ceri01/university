@@ -8,6 +8,7 @@ import (
 type DoubleLinkedList struct {
 	head *util.ListNodeDouble
 	tail *util.ListNodeDouble
+	dim  int
 }
 
 func (list *DoubleLinkedList) InsertHead(val int) { // Tempo costante => O(1)
@@ -22,6 +23,7 @@ func (list *DoubleLinkedList) InsertHead(val int) { // Tempo costante => O(1)
 	if list.tail == nil {
 		list.tail = node
 	}
+	list.dim++
 }
 
 func (list *DoubleLinkedList) InsertTail(val int) { // Tempo lineare => O(1)
@@ -34,6 +36,7 @@ func (list *DoubleLinkedList) InsertTail(val int) { // Tempo lineare => O(1)
 	if list.head == nil {
 		list.head = node
 	}
+	list.dim++
 }
 
 func (list *DoubleLinkedList) SearchByKey(key int) (bool, *util.ListNodeDouble) { // Tempo lineare => O(n)
@@ -86,6 +89,7 @@ func (list *DoubleLinkedList) RemoveByVal(key int) { // Tempo lineare => O(n)
 					list.head = nil
 				}
 			}
+			list.dim--
 		}
 	}
 }
@@ -115,6 +119,7 @@ func (list *DoubleLinkedList) RemoveByPosition(position int) { // Tempo lineare 
 					list.head = nil
 				}
 			}
+			list.dim--
 		}
 	}
 }
@@ -131,4 +136,8 @@ func (list *DoubleLinkedList) PrintList() { // Tempo lineare => O(n)
 	} else {
 		fmt.Println("[]")
 	}
+}
+
+func (list *DoubleLinkedList) Size() int {
+	return list.dim
 }
