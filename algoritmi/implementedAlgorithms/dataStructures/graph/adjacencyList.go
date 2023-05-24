@@ -1,7 +1,9 @@
 package graph
 
 import (
+	util "algoritmi/algoritmi/implementedAlgorithms/dataStructures"
 	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/linkedList"
+	"algoritmi/algoritmi/implementedAlgorithms/dataStructures/tree"
 	"fmt"
 )
 
@@ -42,7 +44,12 @@ func NewAdjListGraph(verts int) *AdjListGraph {
 }
 
 /*
-	Permette di riempire il grafo con i dati passati, ritorna il numero di nodi adiacenti inseriti
+	Permette di riempire il grafo con i dati passati, ritorna il numero di nodi adiacenti inseriti.
+	Essendo l'implementazione di un arco non orientato quando viene inserito l'arco (u, v) verrà inserito anche l'arco (v, u)
+	Il costo di questa operazione è lineare perchè si verifica se il nodo è già stato inserito, in quel caso non verrà inserito
+	il valore due volte nella lista di adiacenza (per cercare si deve scorrere tutta la lista di adiacenza usando una funzione
+	con costo O(n)).
+
 */
 
 func fillAdjListGraph(graph *AdjListGraph, node int, adjacent int) int {
@@ -62,15 +69,21 @@ func fillAdjListGraph(graph *AdjListGraph, node int, adjacent int) int {
 			graph.data[adjacent] = new(linkedList.DoubleLinkedList)
 			insertedNode++ // incremento numero di nodi aggiunti in questa chiamata
 		}
-		// aggiungi il nodo 'adjacent' alla lista di adiacenza di 'node'
-		graph.data[node].InsertTail(adjacent)
-		graph.data[adjacent].InsertTail(node)
+		// aggiungi il nodo 'adjacent' alla lista di adiacenza di 'node' e viceversa (se non presenti)
+		isPresent, _ := graph.data[node].SearchByKey(adjacent)
+		if !isPresent {
+			graph.data[node].InsertTail(adjacent)
+			graph.data[adjacent].InsertTail(node)
+		}
 	} else { // altrimenti
 		if graph.data[node] != nil && graph.data[adjacent] != nil { // verifica che il nodo 'node' e 'adjacent' esistano già
 			// se si aggiungi 'adjacent' alla lista di adiacenza di 'node', in questo caso verranno connessi solo nodi già
-			// presenti nel grafo, e non verranno aggiunti nodi nuovi
-			graph.data[node].InsertTail(adjacent)
-			graph.data[adjacent].InsertTail(node)
+			// presenti nel grafo, e non verranno aggiunti nodi nuovi, ma se questa connessione esiste già non verrà ripetuta.
+			isPresent, _ := graph.data[node].SearchByKey(adjacent)
+			if !isPresent {
+				graph.data[node].InsertTail(adjacent)
+				graph.data[adjacent].InsertTail(node)
+			}
 		} else { // altrimenti se si cerca di aggiungere un nuovo nodo verrà specificato che il limite è stato raggiunto
 			fmt.Println("Numero massimo di nodi raggiunto")
 			insertedNode++
@@ -122,5 +135,37 @@ func PrintAdjListGraph(graph *AdjListGraph) {
 			}
 			fmt.Println()
 		}
+	}
+}
+
+/*
+	Permette di eseguire una vista in profondità del grafo, restituisce un albero ricoprente del grafo costruito selezionando
+	gli archi secondo l'ordine della visita.
+*/
+
+func DFS(graph *AdjListGraph, node int) *util.BiSearchTree {
+	t := tree.CreateBinarySearchTree(1)
+	visited := make(map[int]bool, 1)
+	visited[node] = true
+	fmt.Printf("%d ", node)
+	dfsRec(graph, node, t, visited)
+	fmt.Println()
+	return t
+}
+
+/*
+	Procedura ricorsiva usata per fare la visita in profondità
+*/
+
+func dfsRec(graph *AdjListGraph, node int, searchTree *util.BiSearchTree, visited map[int]bool) {
+	visited[node] = true
+	_, el := graph.data[node].SearchByPosition(0)
+	for el != nil {
+		if visited[el.Key] != true {
+			fmt.Printf("%d ", el.Key)
+			tree.InsertIterative(searchTree, el.Key)
+			dfsRec(graph, el.Key, searchTree, visited)
+		}
+		el = el.Next
 	}
 }
