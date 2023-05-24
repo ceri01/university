@@ -239,7 +239,7 @@ func Gen(graph *AdjListGraph, p float64) {
 		for j := 1; j < graph.verts; j++ {
 			if i != j {
 				randFloat := rand.Float64()
-				if randFloat >= p {
+				if randFloat < p {
 					fillAdjListGraph(graph, i, j)
 				}
 			}
