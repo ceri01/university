@@ -70,3 +70,16 @@ func (tree *BiTree) Nnode(node *util.BiTreeNode) int {
 		return 1 + nsx + ndx
 	}
 }
+
+func SummaryViewBTree(tree *util.BiTreeNode, count int) {
+	fmt.Printf("%*s*", count, "")
+	if tree != nil {
+		fmt.Printf("%d\n", tree.Val)
+		if tree.Left != nil || tree.Right != nil {
+			SummaryViewBTree(tree.Left, count+2)
+			SummaryViewBTree(tree.Right, count+2)
+		}
+	} else {
+		fmt.Println()
+	}
+}
