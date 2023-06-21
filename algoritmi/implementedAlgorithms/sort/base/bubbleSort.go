@@ -1,6 +1,9 @@
 package ordinamento
 
-import "algoritmi/algoritmi/implementedAlgorithms/func"
+import (
+	"algoritmi/algoritmi/implementedAlgorithms/func"
+	"fmt"
+)
 
 /*
 	Costo tempo:
@@ -20,12 +23,13 @@ func BubbleSort(arr []int) {
 	swtch := true
 	for swtch && i < dim {
 		swtch = false
-		for j := 1; j < dim-i; j++ { // oppure i <= dim - 1
+		for j := 1; j <= dim-i; j++ { // oppure i <= dim - 1
 			if arr[j] < arr[j-1] {
 				_func.Swap(arr, j-1, j)
 				swtch = true
 			}
 		}
 		i++
+		fmt.Println(arr)
 	}
 }
